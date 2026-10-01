@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import { registerSW } from 'virtual:pwa-register';
 import App from './App';
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/sora';
 import './styles/global.css';
 
 registerSW({ immediate: true });

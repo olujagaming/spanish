@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getState, setState } from '../../lib/store';
 import { addXp } from '../../lib/state';
 import { playSound } from '../../lib/sound';
+import { Icon } from '../../components/Icon';
 
 export interface GameInfo {
   id: string;
@@ -12,13 +13,13 @@ export interface GameInfo {
 }
 
 export const GAMES: GameInfo[] = [
-  { id: 'memory', title: 'Memory', emoji: '🧠', desc: 'Finde die Paare aus Spanisch und Deutsch.' },
-  { id: 'blitz', title: 'Blitz-Quiz', emoji: '⚡', desc: '60 Sekunden – so viele Wörter wie möglich!' },
-  { id: 'ahorcado', title: 'El Ahorcado', emoji: '🪢', desc: 'Galgenmännchen: Errate das spanische Wort.' },
-  { id: 'satzbau', title: 'Satzbaumeister', emoji: '🧱', desc: 'Bring die Wörter in die richtige Reihenfolge.' },
-  { id: 'hoeren', title: 'Hör-Challenge', emoji: '👂', desc: 'Hör genau hin und tippe, was du hörst.' },
-  { id: 'konjugation', title: 'Konjugations-Duell', emoji: '🥊', desc: 'Konjugiere Verben gegen die Uhr.' },
-  { id: 'wortregen', title: 'Wort-Regen', emoji: '🌧️', desc: 'Übersetze die fallenden Wörter, bevor sie unten ankommen.' },
+  { id: 'memory', title: 'Memoria', emoji: 'tarjetas', desc: 'Finde die Paare aus Spanisch und Deutsch.' },
+  { id: 'blitz', title: 'Relámpago', emoji: 'energia', desc: '60 Sekunden – so viele Wörter wie möglich!' },
+  { id: 'ahorcado', title: 'El Ahorcado', emoji: 'candado', desc: 'Galgenmännchen: Errate das spanische Wort.' },
+  { id: 'satzbau', title: 'Constructor', emoji: 'codice', desc: 'Bring die Wörter in die richtige Reihenfolge.' },
+  { id: 'hoeren', title: 'Oído fino', emoji: 'volumen', desc: 'Hör genau hin und tippe, was du hörst.' },
+  { id: 'konjugation', title: 'Duelo de verbos', emoji: 'verbos', desc: 'Konjugiere Verben gegen die Uhr.' },
+  { id: 'wortregen', title: 'Lluvia de palabras', emoji: 'brujula', desc: 'Übersetze die fallenden Wörter, bevor sie unten ankommen.' },
 ];
 
 /** Saves the result and returns whether it is a new highscore. */
@@ -51,7 +52,9 @@ export function GameOver({ id, score, unit = 'Punkte', onRestart }: { id: string
   const best = Math.max(getState().highscores[id] ?? 0, score);
   return (
     <div className="center" style={{ paddingTop: 30 }}>
-      <div className="confetti">{record ? '🏆' : '🎮'}</div>
+      <div className="result-emblem" style={{ display: 'grid', placeItems: 'center' }}>
+        <Icon name={record ? 'medalla' : 'arena'} size={84} stroke={1.2} />
+      </div>
       <h1>{record ? '¡Nuevo récord!' : '¡Fin del juego!'}</h1>
       <p style={{ fontSize: '1.4rem', fontWeight: 900 }}>
         {score} {unit}
@@ -59,9 +62,9 @@ export function GameOver({ id, score, unit = 'Punkte', onRestart }: { id: string
       <p className="muted">Bestwert: {best}</p>
       <div className="list">
         <button type="button" className="btn block" onClick={onRestart}>
-          🔁 Nochmal spielen
+          Nochmal spielen
         </button>
-        <button type="button" className="btn secondary block" onClick={() => navigate('/spiele')}>
+        <button type="button" className="btn secondary block" onClick={() => navigate('/arena')}>
           Andere Spiele
         </button>
       </div>
@@ -73,8 +76,8 @@ export function GameHeader({ title, children }: { title: string; children?: Reac
   const navigate = useNavigate();
   return (
     <div className="lesson-top">
-      <button type="button" className="icon-btn" onClick={() => navigate('/spiele')} aria-label="Beenden">
-        ✕
+      <button type="button" className="icon-btn" onClick={() => navigate('/arena')} aria-label="Beenden">
+        <Icon name="cerrar" size={18} />
       </button>
       <div className="spacer" style={{ fontWeight: 800 }}>
         {title}

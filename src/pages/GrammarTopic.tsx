@@ -21,7 +21,7 @@ function Quiz({ id, exercises }: { id: string; exercises: readonly GrammarExerci
     const pct = score / items.length;
     return (
       <div className="card center">
-        <div className="big-emoji">{pct === 1 ? '🏆' : pct >= 0.7 ? '🎉' : '💪'}</div>
+        <div className="kicker">{pct === 1 ? 'Perfecto' : pct >= 0.7 ? 'Muy bien' : 'Sigue así'}</div>
         <h3>
           {score} / {items.length} richtig
         </h3>
@@ -36,7 +36,7 @@ function Quiz({ id, exercises }: { id: string; exercises: readonly GrammarExerci
             setDone(false);
           }}
         >
-          🔁 Nochmal
+          Nochmal
         </button>
       </div>
     );
@@ -171,7 +171,7 @@ export default function GrammarTopicPage() {
           )}
         </div>
       ))}
-      <h2 style={{ marginTop: 22 }}>✍️ Übung</h2>
+      <h2 style={{ marginTop: 22 }}>Práctica</h2>
       <Quiz id={g.id} exercises={g.exercises} />
     </div>
   );

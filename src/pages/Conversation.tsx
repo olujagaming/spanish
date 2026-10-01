@@ -4,6 +4,7 @@ import { CONVERSATIONS, getConversation } from '../content/conversations';
 import type { ConversationSource } from '../content/types';
 import { BackLink, LevelBadge, SpeakButton, Tip } from '../components/ui';
 import { Dialogue } from '../components/Dialogue';
+import { Icon } from '../components/Icon';
 import { shuffle } from '../lib/exercises';
 import { listen, recognitionAvailable, speak, stopSpeaking } from '../lib/speech';
 import { fold } from '../lib/answer';
@@ -116,8 +117,8 @@ function Roleplay({ c }: { c: ConversationSource }) {
   return (
     <div style={{ paddingBottom: 260 }}>
       <div className="lesson-top">
-        <button type="button" className="icon-btn" onClick={() => navigate(`/gespraech/${c.id}`)} aria-label="Beenden">
-          ✕
+        <button type="button" className="icon-btn" onClick={() => navigate(`/tertulia/${c.id}`)} aria-label="Beenden">
+          <Icon name="cerrar" size={18} />
         </button>
         <div className="spacer" style={{ fontWeight: 800 }}>
           {c.emoji} {c.title}
@@ -154,13 +155,13 @@ function Roleplay({ c }: { c: ConversationSource }) {
           {finished ? (
             <>
               <div className="center" style={{ fontWeight: 800 }}>
-                🎉 ¡Muy bien! Gespräch geschafft {mistakes === 0 ? 'ohne Fehler!' : `mit ${mistakes} Fehler${mistakes > 1 ? 'n' : ''}.`}
+                ¡Muy bien! Tertulia geschafft {mistakes === 0 ? 'ohne Fehler!' : `mit ${mistakes} Fehler${mistakes > 1 ? 'n' : ''}.`}
               </div>
               <div className="row">
-                <button type="button" className="btn secondary block" onClick={() => navigate(`/gespraech/${c.id}`)}>
+                <button type="button" className="btn secondary block" onClick={() => navigate(`/tertulia/${c.id}`)}>
                   Zurück
                 </button>
-                <Link to="/gespraeche" className="btn block">
+                <Link to="/tertulias" className="btn block">
                   Nächstes Gespräch
                 </Link>
               </div>
@@ -184,7 +185,7 @@ function Roleplay({ c }: { c: ConversationSource }) {
               ))}
               {recognitionAvailable() && (
                 <button type="button" className="btn secondary block small" onClick={say} disabled={listening}>
-                  {listening ? '👂 Ich höre zu …' : '🎤 Oder laut sagen'}
+                  {listening ? 'Ich höre zu …' : 'Oder laut sagen'}
                   {heard && !listening ? ` – „${heard}“` : ''}
                 </button>
               )}
@@ -204,12 +205,12 @@ export default function ConversationPage({ roleplay }: { roleplay?: boolean }) {
   const { id = '' } = useParams();
   const c = getConversation(id);
   const [showDe, setShowDe] = useState(true);
-  if (!c) return <BackLink to="/gespraeche" />;
+  if (!c) return <BackLink to="/tertulias" />;
   if (roleplay) return <Roleplay key={c.id} c={c} />;
 
   return (
     <div style={{ paddingBottom: 80 }}>
-      <BackLink to="/gespraeche" label="Gespräche" />
+      <BackLink to="/tertulias" label="Tertulias" />
       <div className="row" style={{ marginBottom: 6 }}>
         <span className="big-emoji">{c.emoji}</span>
         <div>
@@ -252,7 +253,7 @@ export default function ConversationPage({ roleplay }: { roleplay?: boolean }) {
                     })
                   }
                 >
-                  ➕
+                  +
                 </button>
               </div>
             ))}
@@ -262,8 +263,8 @@ export default function ConversationPage({ roleplay }: { roleplay?: boolean }) {
       {c.tip && <Tip>{c.tip}</Tip>}
       <div className="check-bar">
         <div className="inner">
-          <Link to={`/gespraech/${c.id}/spielen`} className="btn block">
-            🎭 Rollenspiel starten{c.roles[c.you] !== 'Du' ? ` – du bist ${c.roles[c.you]}` : ''}
+          <Link to={`/tertulia/${c.id}/jugar`} className="btn block">
+            Rollenspiel starten{c.roles[c.you] !== 'Du' ? ` – du bist ${c.roles[c.you]}` : ''}
           </Link>
         </div>
       </div>

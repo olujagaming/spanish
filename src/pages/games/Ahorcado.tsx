@@ -62,9 +62,9 @@ export default function Ahorcado({ onRestart }: { onRestart: () => void }) {
 
   return (
     <div>
-      <GameHeader title="🪢 El Ahorcado">
+      <GameHeader title="El Ahorcado">
         <span className="stat-pill hearts">{'❤️'.repeat(lives)}</span>
-        <span className="stat-pill">⭐ {score}</span>
+        <span className="stat-pill">{score} pts</span>
       </GameHeader>
       <div className="card center">
         <div style={{ fontSize: '3rem' }}>{STAGES[Math.min(misses, MAX_MISSES)]}</div>
@@ -88,7 +88,7 @@ export default function Ahorcado({ onRestart }: { onRestart: () => void }) {
         {(solved || lost) && (
           <div>
             <p style={{ fontWeight: 800, color: solved ? 'var(--good)' : 'var(--bad)' }}>
-              {solved ? '¡Correcto! 🎉' : `Schade! Es war: ${word.es}`}
+              {solved ? '¡Correcto!' : `Schade! Es war: ${word.es}`}
             </p>
             <button type="button" className="btn" onClick={nextWord}>
               Nächstes Wort →

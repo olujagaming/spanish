@@ -5,6 +5,7 @@ import { listen, recognitionAvailable, speak } from '../../lib/speech';
 import { SpeakButton, RegionalNote } from '../ui';
 import { playSound } from '../../lib/sound';
 import { setState } from '../../lib/store';
+import { Icon } from '../Icon';
 
 export interface Answer {
   correct: boolean;
@@ -367,7 +368,7 @@ function Speak({ ex, onAutoSubmit, onAnswer }: P<'speak'>) {
       const hit = words.filter((w) => got.includes(w)).length / words.length;
       if (isAccepted(r) || hit >= 0.7) {
         setState((s) => ({ ...s, stats: { ...s.stats, wordsSpoken: s.stats.wordsSpoken + 1 } }));
-        onAutoSubmit({ correct: true, solution: ex.text, hint: '¡Muy bien pronunciado! 🎉' });
+        onAutoSubmit({ correct: true, solution: ex.text, hint: '¡Muy bien pronunciado!' });
       }
     } catch {
       setStateLocal('idle');
@@ -385,7 +386,7 @@ function Speak({ ex, onAutoSubmit, onAnswer }: P<'speak'>) {
       {available ? (
         <div className="center" style={{ marginTop: 20 }}>
           <button type="button" className="icon-btn lg" onClick={start} disabled={state === 'listening'} aria-label="Aufnahme starten">
-            {state === 'listening' ? '👂' : '🎤'}
+            <Icon name={state === 'listening' ? 'ojo' : 'mic'} size={30} />
           </button>
           <p className="muted small" style={{ marginTop: 10 }}>
             {state === 'listening' ? 'Ich höre zu …' : 'Tippe aufs Mikrofon und sprich den Satz.'}

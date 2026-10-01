@@ -3,6 +3,7 @@ import type { Exercise } from '../../lib/exercises';
 import { ExerciseView, type Answer } from './ExerciseView';
 import { ProgressBar } from '../ui';
 import { playSound } from '../../lib/sound';
+import { Icon } from '../Icon';
 import { speak } from '../../lib/speech';
 
 interface Item {
@@ -94,19 +95,26 @@ export function ExerciseRunner({
     <div>
       <div className="lesson-top">
         <button type="button" className="icon-btn" onClick={onQuit} aria-label="Beenden">
-          ✕
+          <Icon name="cerrar" size={18} />
         </button>
         <ProgressBar value={progress} />
       </div>
       <div className="ex-body" key={item.id}>
-        {item.retry && <p className="badge" style={{ marginBottom: 10 }}>🔁 Noch einmal</p>}
+        {item.retry && (
+          <p className="badge" style={{ marginBottom: 10 }}>
+            <Icon name="repetir" size={12} /> Otra vez – noch einmal
+          </p>
+        )}
         <ExerciseView ex={item.ex} checked={checked} onAnswer={setAnswer} onAutoSubmit={submit} />
       </div>
 
       {checked && answer ? (
         <div className={`feedback ${answer.correct ? 'good' : 'bad'}`}>
           <div className="inner">
-            <h3>{answer.correct ? `✅ ${praise}` : '❌ Nicht ganz'}</h3>
+            <h3>
+              <Icon name={answer.correct ? 'check' : 'cerrar'} size={20} stroke={2.2} />
+              {answer.correct ? praise : 'Casi… nicht ganz'}
+            </h3>
             {(!answer.correct || answer.hint) && (
               <div className="solution">
                 {!answer.correct && (
@@ -122,7 +130,7 @@ export function ExerciseRunner({
                 )}
               </div>
             )}
-            <button type="button" className={`btn block ${answer.correct ? 'good' : 'bad'}`} onClick={next} autoFocus>
+            <button type="button" className="btn block" onClick={next} autoFocus>
               Weiter
             </button>
           </div>

@@ -9,6 +9,7 @@ import { speak } from '../lib/speech';
 import { WORDS } from '../content';
 import { sample, shuffle } from '../lib/exercises';
 import { playSound } from '../lib/sound';
+import { Icon } from '../components/Icon';
 
 type Dir = 'es-de' | 'de-es' | 'listen';
 
@@ -90,13 +91,13 @@ export default function FlashcardSession() {
   if (!card) {
     return (
       <div className="center" style={{ paddingTop: 40 }}>
-        <div className="confetti">🎉</div>
+        <div className="kicker">Repaso</div>
         <h1>{done ? '¡Terminado!' : 'Keine Karten'}</h1>
         <p className="muted">
           {done ? `${done} Wiederholungen – ${again}× nochmal. Super gemacht!` : 'Gerade ist nichts fällig. Komm später wieder!'}
         </p>
-        <Link to="/karten" className="btn block">
-          Zurück zu den Karten
+        <Link to="/dex" className="btn block">
+          Zurück zum Dex
         </Link>
       </div>
     );
@@ -126,8 +127,8 @@ export default function FlashcardSession() {
   return (
     <div>
       <div className="lesson-top">
-        <button type="button" className="icon-btn" onClick={() => navigate('/karten')} aria-label="Beenden">
-          ✕
+        <button type="button" className="icon-btn" onClick={() => navigate('/dex')} aria-label="Beenden">
+          <Icon name="cerrar" size={18} />
         </button>
         <ProgressBar value={done / Math.max(1, total)} />
         <span className="small muted">{queue.length}</span>
@@ -137,7 +138,7 @@ export default function FlashcardSession() {
           [
             ['es-de', 'ES → DE'],
             ['de-es', 'DE → ES'],
-            ['listen', '👂 Hören'],
+            ['listen', 'Hören'],
           ] as const
         ).map(([d, l]) => (
           <button key={d} type="button" className={`chip ${dir === d ? 'active' : ''}`} onClick={() => setDir(d)}>

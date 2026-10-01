@@ -1,36 +1,42 @@
 import { Link } from 'react-router-dom';
+import { PageHead } from '../components/ui';
+import { Icon } from '../components/Icon';
 
 const ITEMS = [
-  { to: '/grammatik', emoji: '🧩', title: 'Grammatik', sub: '30 Themen – kurz erklärt mit Übungen' },
-  { to: '/verben', emoji: '🔤', title: 'Verb-Trainer', sub: 'Konjugationstabellen mit Aussprache' },
-  { to: '/woerterbuch', emoji: '🔎', title: 'Wörterbuch', sub: 'Alle Wörter der App durchsuchen' },
-  { to: '/phrasen', emoji: '🧳', title: 'Reise-Phrasebook', sub: 'Die wichtigsten Sätze für Reise & Notfall' },
-  { to: '/falsche-freunde', emoji: '🎭', title: 'Falsche Freunde', sub: 'Wörter, die anders sind, als sie klingen' },
-  { to: '/kultur', emoji: '🌍', title: 'Kultur & Regionen', sub: 'Spanien und Lateinamerika verstehen' },
-  { to: '/erfolge', emoji: '🏅', title: 'Erfolge', sub: 'Deine Abzeichen' },
-  { to: '/statistik', emoji: '📈', title: 'Statistik', sub: 'XP, Serie und Fortschritt' },
-  { to: '/einstellungen', emoji: '⚙️', title: 'Einstellungen', sub: 'Stimme, Ziel, Design, Backup' },
+  { to: '/tienda', icon: 'tienda', title: 'Tienda', sub: 'Dekorationen für deine Plaza' },
+  { to: '/codice', icon: 'codice', title: 'Códice', sub: '30 Grammatik-Themen – kurz erklärt mit Übungen' },
+  { to: '/verbos', icon: 'verbos', title: 'Verbos', sub: 'Konjugationstabellen mit Aussprache' },
+  { to: '/diccionario', icon: 'buscar', title: 'Diccionario', sub: 'Alle Wörter der Reise durchsuchen' },
+  { to: '/frases', icon: 'maleta', title: 'Frases de viaje', sub: 'Die wichtigsten Sätze für Reise & Notfall' },
+  { to: '/falsos-amigos', icon: 'mascaras', title: 'Falsos amigos', sub: 'Wörter, die anders sind, als sie klingen' },
+  { to: '/cultura', icon: 'globo', title: 'Cultura', sub: 'Spanien und Lateinamerika verstehen' },
+  { to: '/logros', icon: 'medalla', title: 'Logros', sub: 'Deine Erfolge' },
+  { to: '/estadistica', icon: 'grafica', title: 'Estadística', sub: 'Rang, Racha und Fortschritt' },
+  { to: '/ajustes', icon: 'ajustes', title: 'Ajustes', sub: 'Stimme, Ziel, Design, Backup' },
 ];
 
 export default function More() {
   return (
     <div>
-      <h1>☰ Mehr</h1>
+      <PageHead kicker="Más" icon="mas" title="Alles weitere" />
       <div className="list">
         {ITEMS.map((i) => (
           <Link key={i.to} to={i.to} className="list-item">
-            <span style={{ fontSize: '1.6rem' }}>{i.emoji}</span>
+            <span className="list-ico">
+              <Icon name={i.icon} size={20} />
+            </span>
             <div className="grow">
-              <div style={{ fontWeight: 800 }}>{i.title}</div>
+              <div className="serif" style={{ fontWeight: 600, fontSize: '1.05rem' }}>
+                {i.title}
+              </div>
               <div className="small muted">{i.sub}</div>
             </div>
-            <span className="muted">›</span>
+            <Icon name="flecha" size={16} className="muted" />
           </Link>
         ))}
       </div>
       <p className="small muted center" style={{ marginTop: 24 }}>
-        ¡Hablemos! · Tipp: Auf dem Handy im Browser-Menü „Zum Startbildschirm hinzufügen“ wählen – dann funktioniert die App wie eine
-        normale App, auch offline.
+        Tipp: Im Browser-Menü „Zum Startbildschirm hinzufügen“ wählen – dann läuft Hablemos wie eine App, auch offline.
       </p>
     </div>
   );

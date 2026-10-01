@@ -1,11 +1,11 @@
 import { PHRASEBOOK } from '../content/extras';
-import { BackLink, SpeakButton } from '../components/ui';
+import { BackLink, SpeakButton, PageHead } from '../components/ui';
 
 export default function Phrasebook() {
   return (
     <div>
       <BackLink />
-      <h1>🧳 Reise-Phrasebook</h1>
+      <PageHead kicker="Frases" icon="maleta" title="Reise-Phrasebook" />
       <p className="muted small">Die wichtigsten Sätze zum schnellen Nachschlagen – zum Beispiel unterwegs, auch offline.</p>
       {PHRASEBOOK.map((cat) => (
         <section key={cat.id}>

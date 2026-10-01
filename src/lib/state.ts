@@ -54,13 +54,19 @@ export interface AppState {
     wordsSpoken: number;
   };
   settings: Settings;
+  /** In-game currency, earned 1:1 with XP, spent on plaza decorations. */
+  reales: number;
+  /** Bought decorations: decoration id → count owned. */
+  inventory: Record<string, number>;
+  /** Decorations placed on the plaza: slot id → decoration id. */
+  plaza: Record<string, string>;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
   dailyGoal: 30,
   region: 'es',
   rate: 0.9,
-  theme: 'auto',
+  theme: 'dark',
   sound: true,
   autoplay: true,
   showRegional: true,
@@ -84,6 +90,9 @@ export function initialState(): AppState {
     highscores: {},
     stats: { reviews: 0, gamesPlayed: 0, perfectLessons: 0, wordsSpoken: 0 },
     settings: { ...DEFAULT_SETTINGS },
+    reales: 0,
+    inventory: {},
+    plaza: {},
   };
 }
 
@@ -92,12 +101,19 @@ export function migrate(raw: unknown): AppState {
   const base = initialState();
   if (!raw || typeof raw !== 'object') return base;
   const s = raw as Partial<AppState>;
+  // Saves from before the plaza existed: grant reales for past XP and switch to the new dark look.
+  const legacy = s.reales === undefined;
+  const settings = { ...base.settings, ...(s.settings ?? {}) };
+  if (legacy && settings.theme === 'auto') settings.theme = 'dark';
   return {
     ...base,
     ...s,
     version: 1,
     stats: { ...base.stats, ...(s.stats ?? {}) },
-    settings: { ...base.settings, ...(s.settings ?? {}) },
+    settings,
+    reales: legacy ? (s.xp ?? 0) : (s.reales ?? 0),
+    inventory: s.inventory ?? {},
+    plaza: s.plaza ?? {},
   };
 }
 
@@ -131,6 +147,7 @@ export function addXp(s: AppState, amount: number, now = Date.now()): AppState {
   return {
     ...s,
     xp: s.xp + amount,
+    reales: s.reales + amount,
     days: { ...s.days, [today]: (s.days[today] ?? 0) + amount },
     streak,
     bestStreak: Math.max(s.bestStreak, streak),

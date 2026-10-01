@@ -87,9 +87,9 @@ export default function Wortregen({ onRestart }: { onRestart: () => void }) {
 
   return (
     <div>
-      <GameHeader title="🌧️ Wort-Regen">
+      <GameHeader title="Lluvia de palabras">
         <span className="stat-pill hearts">{'❤️'.repeat(Math.max(0, lives))}</span>
-        <span className="stat-pill">⭐ {score}</span>
+        <span className="stat-pill">{score} pts</span>
       </GameHeader>
       <div className="rain-field">
         {drops.map((d) => (

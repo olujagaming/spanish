@@ -4,7 +4,10 @@ import { getLesson, LESSONS, WORDS } from '../content';
 import { getGrammar } from '../content/grammar';
 import { lessonExercises } from '../lib/exercises';
 import { ExerciseRunner, type RunResult } from '../components/exercises/ExerciseRunner';
-import { BackLink, RegionalNote, SpeakButton, Stars, Tip } from '../components/ui';
+import { BackLink, Gems, RegionalNote, SpeakButton, Tip } from '../components/ui';
+import { Icon } from '../components/Icon';
+import { BUILDINGS, isUnitComplete, REGIONS, type Building } from '../lib/progression';
+import { BrandMark } from '../components/BrandMark';
 import { Dialogue } from '../components/Dialogue';
 import { setState } from '../lib/store';
 import { completeLesson } from '../lib/state';
@@ -26,6 +29,7 @@ function LessonPage({ id }: { id: string }) {
   const [showDe, setShowDe] = useState(true);
   const [result, setResult] = useState<RunResult | null>(null);
   const [runKey, setRunKey] = useState(0);
+  const [reward, setReward] = useState<{ xp: number; building?: Building }>({ xp: 0 });
 
   const exercises = useMemo(() => {
     if (!lesson) return [];
@@ -39,8 +43,8 @@ function LessonPage({ id }: { id: string }) {
   if (!lesson) {
     return (
       <div>
-        <BackLink to="/lernen" />
-        <p>Lektion nicht gefunden.</p>
+        <BackLink to="/mapa" />
+        <p>Misión nicht gefunden.</p>
       </div>
     );
   }
@@ -53,11 +57,16 @@ function LessonPage({ id }: { id: string }) {
         key={runKey}
         exercises={exercises}
         onQuit={() => {
-          if (confirm('Lektion abbrechen? Dein Fortschritt in dieser Lektion geht verloren.')) navigate('/lernen');
+          if (confirm('Misión abbrechen? Dein Fortschritt in dieser Misión geht verloren.')) navigate('/mapa');
         }}
         onFinish={(r) => {
+          const before = getState();
+          const wasBuilt = isUnitComplete(before, lesson.unitId);
           setResult(r);
           setState((s) => completeLesson(s, lesson.id, r.score, lesson.words.map((w) => w.key)));
+          const after = getState();
+          const building = !wasBuilt && isUnitComplete(after, lesson.unitId) ? BUILDINGS.find((b) => b.unitId === lesson.unitId) : undefined;
+          setReward({ xp: after.xp - before.xp, building });
           setStep('done');
         }}
       />
@@ -68,28 +77,39 @@ function LessonPage({ id }: { id: string }) {
     const stars = result.score >= 0.95 ? 3 : result.score >= 0.8 ? 2 : 1;
     const next = nextLesson(getState());
     return (
-      <div className="center" style={{ paddingTop: 30 }}>
-        <div className="confetti">{stars === 3 ? '🏆' : stars === 2 ? '🎉' : '👍'}</div>
-        <h1>¡Lección completada!</h1>
-        <div style={{ fontSize: '2rem' }}>
-          <Stars n={stars} />
+      <div className="center" style={{ paddingTop: 24 }}>
+        <BrandMark className="result-emblem" />
+        <div className="kicker">Misión cumplida</div>
+        <h1>{stars === 3 ? '¡Perfecto!' : stars === 2 ? '¡Muy bien!' : '¡Hecho!'}</h1>
+        <div style={{ transform: 'scale(1.6)', margin: '10px 0 16px' }}>
+          <Gems n={stars} />
         </div>
         <p className="muted">
           {result.correctFirstTry} von {result.total} beim ersten Versuch richtig ({Math.round(result.score * 100)} %)
         </p>
-        <div className="card" style={{ textAlign: 'left' }}>
-          <div className="row">
-            <span className="big-emoji">🗂️</span>
-            <div>
-              <strong>{lesson.words.length} Wörter</strong> wurden zu deinen Karteikarten hinzugefügt. Wiederhole sie täglich, damit sie
-              hängen bleiben!
-            </div>
+        <div className="grid-2" style={{ marginBottom: 14 }}>
+          <div className="stat-box">
+            <div className="num">+{reward.xp}</div>
+            <div className="lbl">XP · Reales</div>
+          </div>
+          <div className="stat-box">
+            <div className="num">+{lesson.words.length}</div>
+            <div className="lbl">Einträge im Dex</div>
           </div>
         </div>
+        {reward.building && (
+          <Link to="/" className="card gold card-link pop" style={{ textAlign: 'left' }}>
+            <div className="kicker">Etapa completada · Neues Gebäude</div>
+            <div className="serif" style={{ fontSize: '1.3rem', fontWeight: 600 }}>
+              {reward.building.name}
+            </div>
+            <div className="small muted">steht jetzt auf deiner Plaza – schau es dir an!</div>
+          </Link>
+        )}
         <div className="list">
           {next && next.id !== lesson.id && (
-            <Link to={`/lektion/${next.id}`} className="btn block">
-              Nächste Lektion: {next.emoji} {next.title}
+            <Link to={`/mision/${next.id}`} className="btn block">
+              Weiter: {next.title} <Icon name="flecha" size={17} />
             </Link>
           )}
           <button
@@ -100,10 +120,10 @@ function LessonPage({ id }: { id: string }) {
               setStep('practice');
             }}
           >
-            🔁 Nochmal üben
+            <Icon name="repetir" size={16} /> Nochmal üben
           </button>
-          <Link to="/lernen" className="btn ghost block">
-            Zum Lernpfad
+          <Link to="/mapa" className="btn ghost block">
+            Zur Karte
           </Link>
         </div>
       </div>
@@ -112,27 +132,26 @@ function LessonPage({ id }: { id: string }) {
 
   return (
     <div style={{ paddingBottom: 90 }}>
-      <BackLink to="/lernen" label="Lernpfad" />
-      <div className="row" style={{ marginBottom: 8 }}>
-        <span className="big-emoji">{lesson.emoji}</span>
-        <div>
-          <div className="small muted" style={{ fontWeight: 800 }}>
-            {lesson.level} · {lesson.unitTitle}
-          </div>
-          <h1 style={{ margin: 0 }}>{lesson.title}</h1>
+      <BackLink to="/mapa" label="Mapa" />
+      <header className="page-head">
+        <div className="kicker" style={{ color: REGIONS[lesson.level].color }}>
+          {REGIONS[lesson.level].place} · Etapa {lesson.unitTitle}
         </div>
-      </div>
-      <p className="muted">🎯 {lesson.goal}</p>
+        <h1>
+          {lesson.emoji} {lesson.title}
+        </h1>
+        <p>{lesson.goal}</p>
+      </header>
 
       <div className="tabs">
         <button type="button" className={step === 'words' ? 'active' : ''} onClick={() => setStep('words')}>
-          1 · Wörter
+          I · Vocabulario
         </button>
         <button type="button" className={step === 'dialogue' ? 'active' : ''} onClick={() => setStep('dialogue')}>
-          2 · {lesson.dialogue ? 'Dialog' : 'Sätze'}
+          II · {lesson.dialogue ? 'Diálogo' : 'Frases'}
         </button>
         <button type="button" onClick={() => setStep('practice')}>
-          3 · Üben
+          III · Práctica
         </button>
       </div>
 
@@ -180,9 +199,13 @@ function LessonPage({ id }: { id: string }) {
             ))}
           </div>
           {grammar && (
-            <Link to={`/grammatik/${grammar.id}`} className="card card-link tinted" style={{ marginTop: 14 }}>
+            <Link to={`/codice/${grammar.id}`} className="card card-link tinted" style={{ marginTop: 14 }}>
               <div style={{ fontWeight: 800 }}>
-                {grammar.emoji} Grammatik dazu: {grammar.title}
+                <span className="kicker" style={{ marginBottom: 2 }}>
+                  <Icon name="codice" size={14} /> Códice
+                </span>
+                <br />
+                {grammar.title}
               </div>
               <div className="small muted">{grammar.summary}</div>
             </Link>
@@ -194,11 +217,11 @@ function LessonPage({ id }: { id: string }) {
         <div className="inner">
           {step === 'words' ? (
             <button type="button" className="btn block" onClick={() => setStep('dialogue')}>
-              Weiter zu {lesson.dialogue ? 'Dialog' : 'Sätzen'} →
+              Weiter zu {lesson.dialogue ? 'Diálogo' : 'Frases'} <Icon name="flecha" size={17} />
             </button>
           ) : (
             <button type="button" className="btn block" onClick={() => setStep('practice')}>
-              Übungen starten 💪
+              Práctica starten <Icon name="flecha" size={17} />
             </button>
           )}
         </div>

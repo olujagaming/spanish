@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
-import { NavLink, Route, Routes, useLocation, Link } from 'react-router-dom';
+import { NavLink, Route, Routes, useLocation, Link, Navigate } from 'react-router-dom';
 import { useAppState } from './lib/store';
-import { currentStreak, todayXp } from './lib/state';
+import { currentStreak } from './lib/state';
 import { speechDefaults } from './lib/speech';
 import { AchievementToasts } from './components/ui';
+import { Icon } from './components/Icon';
+import { BrandMark } from './components/BrandMark';
 import Home from './pages/Home';
 import Learn from './pages/Learn';
 import LessonPage from './pages/Lesson';
@@ -12,7 +14,8 @@ import GrammarList from './pages/GrammarList';
 import GrammarTopicPage from './pages/GrammarTopic';
 import Conversations from './pages/Conversations';
 import ConversationPage from './pages/Conversation';
-import Flashcards from './pages/Flashcards';
+import Dex from './pages/Dex';
+import DexEntryPage from './pages/DexEntry';
 import FlashcardSession from './pages/FlashcardSession';
 import Games from './pages/Games';
 import GamePage from './pages/games';
@@ -26,17 +29,18 @@ import Culture from './pages/Culture';
 import Achievements from './pages/Achievements';
 import Settings from './pages/Settings';
 import Stats from './pages/Stats';
+import Shop from './pages/Shop';
 
 const NAV = [
-  { to: '/', label: 'Start', ico: '🏠', end: true },
-  { to: '/lernen', label: 'Lernen', ico: '📚' },
-  { to: '/gespraeche', label: 'Gespräche', ico: '💬' },
-  { to: '/karten', label: 'Karten', ico: '🗂️' },
-  { to: '/spiele', label: 'Spiele', ico: '🎮' },
-  { to: '/mehr', label: 'Mehr', ico: '☰' },
+  { to: '/', label: 'Plaza', icon: 'plaza', end: true },
+  { to: '/mapa', label: 'Mapa', icon: 'mapa' },
+  { to: '/dex', label: 'Dex', icon: 'dex' },
+  { to: '/tertulias', label: 'Tertulias', icon: 'tertulia' },
+  { to: '/arena', label: 'Arena', icon: 'arena' },
+  { to: '/mas', label: 'Más', icon: 'mas' },
 ];
 
-const FOCUS_ROUTES = [/^\/lektion\//, /^\/test\//, /^\/karten\/lernen/, /^\/spiele\/.+/, /^\/gespraech\/.+\/spielen/];
+const FOCUS_ROUTES = [/^\/mision\//, /^\/atajo\//, /^\/repasar/, /^\/arena\/.+/, /^\/tertulia\/.+\/jugar/];
 
 export default function App() {
   const state = useAppState();
@@ -45,9 +49,9 @@ export default function App() {
   const { settings } = state;
 
   useEffect(() => {
-    const root = document.documentElement;
-    if (settings.theme === 'auto') root.removeAttribute('data-theme');
-    else root.setAttribute('data-theme', settings.theme);
+    document.documentElement.setAttribute('data-theme', settings.theme);
+    const meta = document.querySelector('meta[name="theme-color"]');
+    meta?.setAttribute('content', settings.theme === 'light' ? '#f4efe6' : '#0b0e1a');
   }, [settings.theme]);
 
   useEffect(() => {
@@ -60,55 +64,55 @@ export default function App() {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  const goal = Math.min(1, todayXp(state) / settings.dailyGoal);
-
   return (
     <div className={`app ${focus ? 'focus-page' : ''}`}>
       {!focus && (
         <header className="topbar">
           <Link to="/" className="brand">
-            <span>🇪🇸</span> ¡Hablemos!
+            <BrandMark className="brand-mark" /> Hablemos
           </Link>
-          <Link to="/statistik" className="stat-pill" title="Tagesserie">
-            🔥 {currentStreak(state)}
+          <Link to="/estadistica" className="stat-pill" title="Racha – Tage in Folge">
+            <Icon name="racha" size={15} /> {currentStreak(state)}
           </Link>
-          <Link to="/statistik" className="stat-pill" title="Tagesziel">
-            {goal >= 1 ? '✅' : '🎯'} {todayXp(state)}/{settings.dailyGoal}
+          <Link to="/tienda" className="stat-pill" title="Reales – deine Währung für die Plaza">
+            <Icon name="real" size={15} /> {state.reales}
           </Link>
         </header>
       )}
       <main className="main">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/lernen" element={<Learn />} />
-          <Route path="/lektion/:id" element={<LessonPage />} />
-          <Route path="/test/:level" element={<LevelTest />} />
-          <Route path="/grammatik" element={<GrammarList />} />
-          <Route path="/grammatik/:id" element={<GrammarTopicPage />} />
-          <Route path="/gespraeche" element={<Conversations />} />
-          <Route path="/gespraech/:id" element={<ConversationPage />} />
-          <Route path="/gespraech/:id/spielen" element={<ConversationPage roleplay />} />
-          <Route path="/karten" element={<Flashcards />} />
-          <Route path="/karten/lernen" element={<FlashcardSession />} />
-          <Route path="/spiele" element={<Games />} />
-          <Route path="/spiele/:game" element={<GamePage />} />
-          <Route path="/mehr" element={<More />} />
-          <Route path="/woerterbuch" element={<Dictionary />} />
-          <Route path="/verben" element={<Verbs />} />
-          <Route path="/verben/:inf" element={<VerbPage />} />
-          <Route path="/phrasen" element={<Phrasebook />} />
-          <Route path="/falsche-freunde" element={<FalseFriends />} />
-          <Route path="/kultur" element={<Culture />} />
-          <Route path="/erfolge" element={<Achievements />} />
-          <Route path="/einstellungen" element={<Settings />} />
-          <Route path="/statistik" element={<Stats />} />
-          <Route path="*" element={<Home />} />
+          <Route path="/mapa" element={<Learn />} />
+          <Route path="/mision/:id" element={<LessonPage />} />
+          <Route path="/atajo/:level" element={<LevelTest />} />
+          <Route path="/codice" element={<GrammarList />} />
+          <Route path="/codice/:id" element={<GrammarTopicPage />} />
+          <Route path="/tertulias" element={<Conversations />} />
+          <Route path="/tertulia/:id" element={<ConversationPage />} />
+          <Route path="/tertulia/:id/jugar" element={<ConversationPage roleplay />} />
+          <Route path="/dex" element={<Dex />} />
+          <Route path="/dex/:no" element={<DexEntryPage />} />
+          <Route path="/repasar" element={<FlashcardSession />} />
+          <Route path="/arena" element={<Games />} />
+          <Route path="/arena/:game" element={<GamePage />} />
+          <Route path="/tienda" element={<Shop />} />
+          <Route path="/mas" element={<More />} />
+          <Route path="/diccionario" element={<Dictionary />} />
+          <Route path="/verbos" element={<Verbs />} />
+          <Route path="/verbos/:inf" element={<VerbPage />} />
+          <Route path="/frases" element={<Phrasebook />} />
+          <Route path="/falsos-amigos" element={<FalseFriends />} />
+          <Route path="/cultura" element={<Culture />} />
+          <Route path="/logros" element={<Achievements />} />
+          <Route path="/ajustes" element={<Settings />} />
+          <Route path="/estadistica" element={<Stats />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
       <nav className="bottomnav" aria-label="Hauptnavigation">
         {NAV.map((n) => (
           <NavLink key={n.to} to={n.to} end={n.end} className={({ isActive }) => (isActive ? 'active' : '')}>
-            <span className="ico">{n.ico}</span>
+            <Icon name={n.icon} size={22} />
             <span>{n.label}</span>
           </NavLink>
         ))}

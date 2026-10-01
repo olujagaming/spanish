@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { GRAMMAR } from '../content/grammar';
 import { useAppState } from '../lib/store';
-import { LevelBadge } from '../components/ui';
+import { LevelBadge, PageHead } from '../components/ui';
 
 export default function GrammarList({ embedded }: { embedded?: boolean }) {
   const s = useAppState();
   return (
     <div>
-      {!embedded && <h1>🧩 Grammatik</h1>}
+      {!embedded && <PageHead kicker="Códice" icon="codice" title="Grammatik" />}
       <p className="muted">
         Kurze, alltagsnahe Erklärungen mit Beispielen und Mini-Übungen. Grammatik hilft – aber Sprechen ist wichtiger! Lies ein Thema,
         wenn es in einer Lektion auftaucht.
@@ -16,7 +16,7 @@ export default function GrammarList({ embedded }: { embedded?: boolean }) {
         {GRAMMAR.map((g) => {
           const p = s.grammar[g.id];
           return (
-            <Link key={g.id} to={`/grammatik/${g.id}`} className="list-item">
+            <Link key={g.id} to={`/codice/${g.id}`} className="list-item">
               <span className="big-emoji" style={{ fontSize: '1.8rem' }}>
                 {g.emoji}
               </span>
@@ -32,7 +32,7 @@ export default function GrammarList({ embedded }: { embedded?: boolean }) {
           );
         })}
       </div>
-      <Link to="/verben" className="card card-link tinted" style={{ marginTop: 16 }}>
+      <Link to="/verbos" className="card card-link tinted" style={{ marginTop: 16 }}>
         <div style={{ fontWeight: 800 }}>🔤 Verb-Trainer</div>
         <div className="small muted">Konjugationstabellen für 78 Verben in allen wichtigen Zeiten – mit Aussprache.</div>
       </Link>

@@ -1,14 +1,15 @@
 import { useAppState } from '../lib/store';
-import { currentStreak, levelFromXp } from '../lib/state';
+import { currentStreak } from '../lib/state';
+import { RANKS, rankFromXp, REGIONS } from '../lib/progression';
 import { cardStats, levelProgress, weekXp } from '../lib/selectors';
-import { BackLink, LevelBadge, ProgressBar } from '../components/ui';
+import { BackLink, ProgressBar, PageHead, RankBadge } from '../components/ui';
 import { LEVEL_SOURCES } from '../content';
 import { CONVERSATIONS } from '../content/conversations';
 import { GRAMMAR } from '../content/grammar';
 
 export default function Stats() {
   const s = useAppState();
-  const lvl = levelFromXp(s.xp);
+  const { rank, next: nextRank, progress } = rankFromXp(s.xp);
   const week = weekXp(s);
   const max = Math.max(s.settings.dailyGoal, ...week.map((d) => d.xp));
   const cards = cardStats(s);
@@ -16,26 +17,47 @@ export default function Stats() {
   return (
     <div>
       <BackLink />
-      <h1>📈 Statistik</h1>
+      <PageHead kicker="Estadística" icon="grafica" title="Dein Reisetagebuch" />
+      <div className="card gold">
+        <div className="row">
+          <RankBadge index={rank.index} size={58} />
+          <div className="spacer">
+            <div className="kicker" style={{ marginBottom: 2 }}>
+              Rango {rank.index + 1} von {RANKS.length}
+            </div>
+            <div className="serif" style={{ fontSize: '1.5rem', fontWeight: 600 }}>
+              {rank.title}
+            </div>
+            <div className="tiny muted">{rank.de}</div>
+          </div>
+        </div>
+        <div style={{ marginTop: 12 }}>
+          <ProgressBar value={progress} />
+          <div className="tiny muted" style={{ marginTop: 6 }}>
+            {nextRank ? `${s.xp - rank.min}/${nextRank.min - rank.min} XP bis ${nextRank.title}` : 'Höchster Rang erreicht – ¡eres una leyenda!'}
+          </div>
+        </div>
+        <div className="chips" style={{ marginTop: 12 }}>
+          {RANKS.map((r) => (
+            <span key={r.title} className={`chip ${r.index <= rank.index ? 'active' : ''}`} style={{ cursor: 'default' }}>
+              {r.title}
+            </span>
+          ))}
+        </div>
+      </div>
       <div className="grid-3" style={{ marginBottom: 14 }}>
         <div className="stat-box">
-          <div className="num">🔥 {currentStreak(s)}</div>
-          <div className="lbl">Tage Serie (Rekord {s.bestStreak})</div>
+          <div className="num">{currentStreak(s)}</div>
+          <div className="lbl">Racha (Rekord {s.bestStreak})</div>
         </div>
         <div className="stat-box">
           <div className="num">{s.xp}</div>
           <div className="lbl">XP gesamt</div>
         </div>
         <div className="stat-box">
-          <div className="num">{lvl.level}</div>
-          <div className="lbl">Level</div>
+          <div className="num">{s.reales}</div>
+          <div className="lbl">Reales</div>
         </div>
-      </div>
-      <div className="card">
-        <div className="small" style={{ fontWeight: 800, marginBottom: 6 }}>
-          Level {lvl.level} → {lvl.level + 1}: {lvl.into}/{lvl.needed} XP
-        </div>
-        <ProgressBar value={lvl.into / lvl.needed} className="accent" />
       </div>
 
       <div className="card">
@@ -58,17 +80,19 @@ export default function Stats() {
           ))}
         </div>
         <p className="tiny muted" style={{ marginTop: 8, marginBottom: 0 }}>
-          Grün = Tagesziel ({s.settings.dailyGoal} XP) erreicht
+          Grün = Energía-Ziel ({s.settings.dailyGoal} XP) erreicht
         </p>
       </div>
 
       <div className="card">
-        <h3>Lektionen</h3>
+        <h3>Regionen</h3>
         {LEVEL_SOURCES.map((l) => {
           const p = levelProgress(s, l.id);
           return (
             <div key={l.id} className="row" style={{ marginBottom: 8 }}>
-              <LevelBadge level={l.id} />
+              <span className="small" style={{ width: 120, color: REGIONS[l.id].color }}>
+                {REGIONS[l.id].place}
+              </span>
               <div className="spacer">
                 <ProgressBar value={p.done / p.total} className="thin" />
               </div>
@@ -83,7 +107,7 @@ export default function Stats() {
       <div className="grid-2">
         <div className="stat-box">
           <div className="num">{cards.total}</div>
-          <div className="lbl">Karteikarten ({cards.mastered} gefestigt)</div>
+          <div className="lbl">Dex-Einträge ({cards.mastered} gemeistert)</div>
         </div>
         <div className="stat-box">
           <div className="num">{s.stats.reviews}</div>
@@ -93,7 +117,7 @@ export default function Stats() {
           <div className="num">
             {Object.keys(s.conversations).length}/{CONVERSATIONS.length}
           </div>
-          <div className="lbl">Gespräche</div>
+          <div className="lbl">Tertulias</div>
         </div>
         <div className="stat-box">
           <div className="num">

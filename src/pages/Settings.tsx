@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { exportState, replaceState, resetState, setState, useAppState } from '../lib/store';
 import type { Settings as S } from '../lib/state';
 import { recognitionAvailable, speak, spanishVoices, ttsAvailable } from '../lib/speech';
-import { BackLink, Switch } from '../components/ui';
+import { BackLink, Switch, PageHead } from '../components/ui';
 
 export default function Settings() {
   const s = useAppState();
@@ -43,7 +43,7 @@ export default function Settings() {
   return (
     <div>
       <BackLink />
-      <h1>⚙️ Einstellungen</h1>
+      <PageHead kicker="Ajustes" icon="ajustes" title="Einstellungen" />
 
       <div className="card">
         <h3>Profil & Ziel</h3>
@@ -75,8 +75,8 @@ export default function Settings() {
         <div className="settings-row">
           <span>Akzent der Stimme</span>
           <select className="input" value={st.region} onChange={(e) => set({ region: e.target.value as S['region'], voiceURI: undefined })}>
-            <option value="es">🇪🇸 Spanien</option>
-            <option value="latam">🌎 Lateinamerika</option>
+            <option value="es">Spanien</option>
+            <option value="latam">Lateinamerika</option>
           </select>
         </div>
         {voices.length > 0 && (
@@ -99,7 +99,7 @@ export default function Settings() {
         <div className="settings-row">
           <span />
           <button type="button" className="btn secondary small" onClick={() => speak('¡Hola! ¿Qué tal? Estoy aprendiendo español.')}>
-            🔊 Stimme testen
+            Stimme testen
           </button>
         </div>
         <div className="settings-row">
@@ -114,7 +114,7 @@ export default function Settings() {
           <Switch label="Regionale Hinweise" checked={st.showRegional} onChange={(v) => set({ showRegional: v })} />
         </div>
         <p className="tiny muted" style={{ marginBottom: 0 }}>
-          Spracherkennung (Sprechübungen): {recognitionAvailable() ? '✅ verfügbar' : '❌ in diesem Browser nicht verfügbar (am besten Chrome/Android)'}
+          Spracherkennung (Sprechübungen): {recognitionAvailable() ? 'verfügbar' : 'in diesem Browser nicht verfügbar (am besten Chrome/Android)'}
         </p>
       </div>
 
@@ -123,9 +123,9 @@ export default function Settings() {
         <div className="settings-row">
           <span>Design</span>
           <select className="input" value={st.theme} onChange={(e) => set({ theme: e.target.value as S['theme'] })}>
-            <option value="auto">Automatisch</option>
-            <option value="light">☀️ Hell</option>
-            <option value="dark">🌙 Dunkel</option>
+            <option value="dark">Noche (dunkel)</option>
+            <option value="light">Día (hell)</option>
+            <option value="auto">Automatisch (System)</option>
           </select>
         </div>
         <div className="settings-row">
@@ -142,10 +142,10 @@ export default function Settings() {
         </p>
         <div className="list">
           <button type="button" className="btn secondary block" onClick={download}>
-            💾 Fortschritt exportieren
+            Fortschritt exportieren
           </button>
           <button type="button" className="btn secondary block" onClick={() => fileRef.current?.click()}>
-            📂 Fortschritt importieren
+            Fortschritt importieren
           </button>
           <input
             ref={fileRef}

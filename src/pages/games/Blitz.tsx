@@ -31,9 +31,9 @@ export default function Blitz({ onRestart }: { onRestart: () => void }) {
 
   return (
     <div>
-      <GameHeader title="⚡ Blitz-Quiz">
-        <span className="stat-pill timer">⏱ {left}s</span>
-        <span className="stat-pill">⭐ {score}</span>
+      <GameHeader title="Relámpago">
+        <span className="stat-pill timer">{left}s</span>
+        <span className="stat-pill">{score} pts</span>
       </GameHeader>
       <div className={`card center ${flash === 'bad' ? 'shake' : ''}`} style={{ background: flash === 'good' ? 'var(--good-soft)' : flash === 'bad' ? 'var(--bad-soft)' : undefined }}>
         <div className="small muted">{ex.dir === 'es-de' ? 'Was bedeutet …' : 'Auf Spanisch:'}</div>

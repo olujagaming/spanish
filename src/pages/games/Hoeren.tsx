@@ -45,11 +45,11 @@ export default function Hoeren({ onRestart }: { onRestart: () => void }) {
 
   return (
     <div>
-      <GameHeader title="👂 Hör-Challenge">
+      <GameHeader title="Oído fino">
         <span className="stat-pill">
           {round + 1}/{words.length}
         </span>
-        <span className="stat-pill">⭐ {score}</span>
+        <span className="stat-pill">{score} pts</span>
       </GameHeader>
       <p className="center muted">Hör zu und schreib das spanische Wort.</p>
       <div className="row" style={{ justifyContent: 'center', marginBottom: 20 }}>
@@ -79,7 +79,7 @@ export default function Hoeren({ onRestart }: { onRestart: () => void }) {
         {!result && <AccentKeys onKey={(k) => setValue((v) => v + k)} />}
         {result && (
           <div className="card" style={{ marginTop: 12, background: result === 'good' ? 'var(--good-soft)' : 'var(--bad-soft)' }}>
-            <strong>{result === 'good' ? '✅ ¡Bien!' : '❌ Richtig:'}</strong> <span className="es">{w.es}</span>
+            <strong>{result === 'good' ? '¡Bien!' : 'Richtig:'}</strong> <span className="es">{w.es}</span>
             <div className="small muted">{w.de}</div>
           </div>
         )}

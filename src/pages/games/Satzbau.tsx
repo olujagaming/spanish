@@ -41,11 +41,11 @@ export default function Satzbau({ onRestart }: { onRestart: () => void }) {
 
   return (
     <div>
-      <GameHeader title="🧱 Satzbaumeister">
+      <GameHeader title="Constructor">
         <span className="stat-pill">
           {round + 1}/{phrases.length}
         </span>
-        <span className="stat-pill">⭐ {score}</span>
+        <span className="stat-pill">{score} pts</span>
       </GameHeader>
       <div className="prompt-big" style={{ fontSize: '1.2rem' }}>
         {p.de}
@@ -70,7 +70,7 @@ export default function Satzbau({ onRestart }: { onRestart: () => void }) {
         </button>
       ) : (
         <div className={`card ${state === 'good' ? '' : 'shake'}`} style={{ background: state === 'good' ? 'var(--good-soft)' : 'var(--bad-soft)' }}>
-          <strong>{state === 'good' ? '✅ ¡Perfecto!' : '❌ Richtig wäre:'}</strong>
+          <strong>{state === 'good' ? '¡Perfecto!' : 'Richtig wäre:'}</strong>
           <div className="es">{p.es}</div>
           <button type="button" className="btn block" style={{ marginTop: 10 }} onClick={next}>
             Weiter

@@ -29,7 +29,7 @@ export default function LevelTest() {
     return ex;
   }, [prevLevel]);
 
-  if (!src || !prevLevel) return <BackLink to="/lernen" />;
+  if (!src || !prevLevel) return <BackLink to="/mapa" />;
 
   const skipped = LESSONS.filter((l) => ORDER.indexOf(l.level) < ORDER.indexOf(level as LevelId));
 
@@ -37,7 +37,7 @@ export default function LevelTest() {
     const passed = result.score >= PASS;
     return (
       <div className="center" style={{ paddingTop: 30 }}>
-        <div className="confetti">{passed ? '🚀' : '💪'}</div>
+        <div className="kicker">Atajo</div>
         <h1>{passed ? '¡Aprobado! Bestanden!' : 'Noch nicht ganz'}</h1>
         <p>{Math.round(result.score * 100)} % richtig</p>
         <p className="muted">
@@ -45,7 +45,7 @@ export default function LevelTest() {
             ? `Alle Lektionen vor ${level} wurden als erledigt markiert und ihre Wörter zu deinen Karteikarten hinzugefügt.`
             : `Du brauchst ${PASS * 100} %. Kein Problem – lerne die Lektionen davor, dann klappt es!`}
         </p>
-        <Link to="/lernen" className="btn block">
+        <Link to="/mapa" className="btn block">
           Zum Lernpfad
         </Link>
       </div>
@@ -55,10 +55,10 @@ export default function LevelTest() {
   if (!started) {
     return (
       <div>
-        <BackLink to="/lernen" />
+        <BackLink to="/mapa" />
         <div className="card center">
-          <div className="big-emoji">⏩</div>
-          <h1>Einstufungstest {level}</h1>
+          <div className="kicker">Atajo</div>
+          <h1>Abkürzung nach {level}</h1>
           <p>
             Du kannst schon etwas Spanisch? Beantworte 20 Fragen zum Stoff vor <strong>{src.title}</strong>. Mit mindestens{' '}
             {PASS * 100} % springst du direkt zu Stufe {level} – {skipped.length} Lektionen werden freigeschaltet.
@@ -74,7 +74,7 @@ export default function LevelTest() {
   return (
     <ExerciseRunner
       exercises={exercises}
-      onQuit={() => navigate('/lernen')}
+      onQuit={() => navigate('/mapa')}
       onFinish={(r) => {
         setResult(r);
         if (r.score >= PASS) {

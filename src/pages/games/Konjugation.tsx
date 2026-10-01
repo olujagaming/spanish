@@ -68,9 +68,9 @@ function Play({ tenses, onRestart }: { tenses: Tense[]; onRestart: () => void })
 
   return (
     <div>
-      <GameHeader title="🥊 Konjugations-Duell">
-        <span className="stat-pill timer">⏱ {left}s</span>
-        <span className="stat-pill">⭐ {score}</span>
+      <GameHeader title="Duelo de verbos">
+        <span className="stat-pill timer">{left}s</span>
+        <span className="stat-pill">{score} pts</span>
       </GameHeader>
       <div className="card center">
         <div className="badge" style={{ marginBottom: 8 }}>
@@ -102,7 +102,7 @@ function Play({ tenses, onRestart }: { tenses: Tense[]; onRestart: () => void })
         {!feedback && <AccentKeys onKey={(k) => setValue((v) => v + k)} />}
         {feedback && (
           <div className="card shake" style={{ marginTop: 10, background: 'var(--bad-soft)' }}>
-            ❌ Richtig: <strong>{feedback.answer}</strong>
+            Richtig: <strong>{feedback.answer}</strong>
           </div>
         )}
         <button type="submit" className="btn block" style={{ marginTop: 12 }}>
@@ -118,7 +118,7 @@ export default function Konjugation({ onRestart }: { onRestart: () => void }) {
   if (set) return <Play tenses={set} onRestart={onRestart} />;
   return (
     <div>
-      <GameHeader title="🥊 Konjugations-Duell" />
+      <GameHeader title="Duelo de verbos" />
       <p className="muted">90 Sekunden: Konjugiere so viele Verben wie möglich. Welche Zeiten willst du üben?</p>
       <div className="list">
         {TENSE_SETS.map((s) => (

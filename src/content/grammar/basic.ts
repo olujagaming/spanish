@@ -1,0 +1,725 @@
+import type { GrammarTopic } from '../types';
+
+export const GRAMMAR_BASIC: GrammarTopic[] = [
+  {
+    id: 'articulos',
+    level: 'A0',
+    title: 'Artikel: el, la, un, una',
+    emoji: '🏷️',
+    summary: 'Jedes Nomen ist männlich oder weiblich – so erkennst du es.',
+    sections: [
+      {
+        heading: 'Bestimmt und unbestimmt',
+        text: 'Spanisch hat nur zwei Geschlechter: **männlich** und **weiblich**. Es gibt kein „das“.',
+        table: [
+          ['', 'männlich', 'weiblich'],
+          ['der/die (Einzahl)', 'el', 'la'],
+          ['die (Mehrzahl)', 'los', 'las'],
+          ['ein/eine', 'un', 'una'],
+          ['einige', 'unos', 'unas'],
+        ],
+        examples: [
+          ['el libro, los libros', 'das Buch, die Bücher'],
+          ['la casa, las casas', 'das Haus, die Häuser'],
+          ['un café, una cerveza', 'ein Kaffee, ein Bier'],
+        ],
+      },
+      {
+        heading: 'Faustregeln',
+        text: 'Wörter auf **-o** sind meist männlich, auf **-a** meist weiblich. Wörter auf **-ción, -dad, -tad** sind weiblich. Ausnahmen musst du lernen: **el día**, **el problema**, **el mapa**, **la mano**, **la foto**, **la moto**.',
+        examples: [
+          ['la canción, la ciudad', 'das Lied, die Stadt'],
+          ['el día, el problema', 'der Tag, das Problem'],
+          ['la mano, la radio', 'die Hand, das Radio'],
+        ],
+      },
+      {
+        heading: 'Zusammenziehungen',
+        text: '**a + el = al** und **de + el = del**. Mit „la“ wird nichts zusammengezogen.',
+        examples: [
+          ['Voy al cine.', 'Ich gehe ins Kino.'],
+          ['Vengo del trabajo.', 'Ich komme von der Arbeit.'],
+          ['Voy a la playa.', 'Ich gehe an den Strand.'],
+        ],
+      },
+    ],
+    exercises: [
+      { q: '___ libro es interesante.', options: ['El', 'La', 'Los'], answer: 0 },
+      { q: '___ ciudad es muy bonita.', options: ['El', 'La', 'Un'], answer: 1, explain: 'Wörter auf -dad sind weiblich.' },
+      { q: 'Tengo ___ problema.', options: ['una', 'un', 'la'], answer: 1, explain: '„Problema“ ist eine Ausnahme: el problema.' },
+      { q: 'Voy ___ supermercado.', options: ['a el', 'al', 'a la'], answer: 1, explain: 'a + el = al' },
+      { q: '___ manos', options: ['Los', 'Las', 'Unos'], answer: 1, explain: '„Mano“ ist weiblich: la mano.' },
+      { q: 'Vengo ___ médico.', options: ['de el', 'del', 'de la'], answer: 1 },
+    ],
+  },
+  {
+    id: 'plural-adjetivos',
+    level: 'A0',
+    title: 'Mehrzahl & Adjektive',
+    emoji: '➕',
+    summary: 'So bildest du die Mehrzahl und passt Adjektive an.',
+    sections: [
+      {
+        heading: 'Mehrzahl',
+        text: 'Endet ein Wort auf **Vokal**, hängst du **-s** an. Endet es auf **Konsonant**, hängst du **-es** an. Aus **-z** wird **-ces**.',
+        examples: [
+          ['el gato → los gatos', 'die Katze → die Katzen'],
+          ['la ciudad → las ciudades', 'die Stadt → die Städte'],
+          ['el lápiz → los lápices', 'der Bleistift → die Bleistifte'],
+        ],
+      },
+      {
+        heading: 'Adjektive passen sich an',
+        text: 'Adjektive stehen meist **nach** dem Nomen und passen sich in Geschlecht und Zahl an. Adjektive auf **-e** oder Konsonant haben nur eine Form für m/f.',
+        table: [
+          ['', 'Einzahl', 'Mehrzahl'],
+          ['m', 'el chico alto', 'los chicos altos'],
+          ['f', 'la chica alta', 'las chicas altas'],
+          ['m/f', 'el coche verde', 'las casas verdes'],
+        ],
+      },
+      {
+        heading: 'Gemischte Gruppen',
+        text: 'Ist auch nur **ein** männliches Wort dabei, nimmt man die männliche Form.',
+        examples: [['Juan y María son simpáticos.', 'Juan und María sind nett.']],
+      },
+    ],
+    exercises: [
+      { q: 'la flor → las ___', options: ['flors', 'flores', 'floras'], answer: 1 },
+      { q: 'la luz → las ___', options: ['luzes', 'luces', 'luzs'], answer: 1 },
+      { q: 'Las casas son ___.', options: ['blanco', 'blancas', 'blancos'], answer: 1 },
+      { q: 'Mis amigas son muy ___.', options: ['simpáticos', 'simpática', 'simpáticas'], answer: 2 },
+      { q: 'Pedro y Ana son ___.', options: ['altos', 'altas', 'alto'], answer: 0, explain: 'Gemischte Gruppe → männliche Form.' },
+      { q: 'un coche ___', options: ['verda', 'verde', 'verdo'], answer: 1 },
+    ],
+  },
+  {
+    id: 'presente-regular',
+    level: 'A1',
+    title: 'Präsens: regelmäßige Verben',
+    emoji: '⚙️',
+    summary: 'Die drei Verbgruppen -ar, -er, -ir in der Gegenwart.',
+    sections: [
+      {
+        heading: 'Drei Gruppen',
+        text: 'Spanische Verben enden auf **-ar**, **-er** oder **-ir**. Du nimmst die Endung weg und hängst die Personalendung an. Das Pronomen (yo, tú …) lässt man meist weg – die Endung zeigt schon, wer gemeint ist.',
+        table: [
+          ['', 'hablar', 'comer', 'vivir'],
+          ['yo', 'hablo', 'como', 'vivo'],
+          ['tú', 'hablas', 'comes', 'vives'],
+          ['él/ella/usted', 'habla', 'come', 'vive'],
+          ['nosotros', 'hablamos', 'comemos', 'vivimos'],
+          ['vosotros', 'habláis', 'coméis', 'vivís'],
+          ['ellos/ustedes', 'hablan', 'comen', 'viven'],
+        ],
+      },
+      {
+        heading: 'Spanien vs. Lateinamerika',
+        text: '**Vosotros** (ihr) benutzt man nur in Spanien. In Lateinamerika sagt man für „ihr“ immer **ustedes** (Verbform wie „ellos“). In Argentinien, Uruguay und Teilen Mittelamerikas sagt man statt „tú“ oft **vos**: vos hablás, vos comés, vos vivís.',
+        examples: [
+          ['¿Vosotros habláis inglés? (ES)', 'Sprecht ihr Englisch?'],
+          ['¿Ustedes hablan inglés? (LatAm)', 'Sprecht ihr Englisch?'],
+        ],
+      },
+    ],
+    exercises: [
+      { q: 'Yo ___ español. (hablar)', options: ['hablo', 'habla', 'hablas'], answer: 0 },
+      { q: '¿Dónde ___ tú? (vivir)', options: ['vive', 'vives', 'vivas'], answer: 1 },
+      { q: 'Nosotros ___ a las dos. (comer)', options: ['comimos', 'comemos', 'comamos'], answer: 1 },
+      { q: 'Ellos ___ en un banco. (trabajar)', options: ['trabajan', 'trabajen', 'trabajamos'], answer: 0 },
+      { q: '¿Vosotros ___ mucho? (leer)', options: ['leéis', 'leen', 'leís'], answer: 0 },
+      { q: 'Mi hermana ___ cartas. (escribir)', options: ['escribe', 'escriba', 'escribes'], answer: 0 },
+    ],
+  },
+  {
+    id: 'presente-irregular',
+    level: 'A1',
+    title: 'Präsens: wichtige unregelmäßige Verben',
+    emoji: '🌀',
+    summary: 'Stammwechsel (quiero, puedo) und unregelmäßige Ich-Formen (tengo, hago).',
+    sections: [
+      {
+        heading: 'Stammwechsel',
+        text: 'Bei vielen Verben ändert sich der Vokal im Stamm – aber **nicht** bei nosotros und vosotros („Schuh-Verben“).',
+        table: [
+          ['', 'e → ie (querer)', 'o → ue (poder)', 'e → i (pedir)'],
+          ['yo', 'quiero', 'puedo', 'pido'],
+          ['tú', 'quieres', 'puedes', 'pides'],
+          ['él/ella', 'quiere', 'puede', 'pide'],
+          ['nosotros', 'queremos', 'podemos', 'pedimos'],
+          ['vosotros', 'queréis', 'podéis', 'pedís'],
+          ['ellos', 'quieren', 'pueden', 'piden'],
+        ],
+      },
+      {
+        heading: 'Unregelmäßige Ich-Form',
+        text: 'Einige Verben sind nur in der **yo**-Form unregelmäßig: **hago** (hacer), **pongo** (poner), **salgo** (salir), **conozco** (conocer), **sé** (saber), **veo** (ver), **doy** (dar). Andere sind doppelt unregelmäßig: **tengo, tienes** (tener), **vengo, vienes** (venir), **digo, dices** (decir).',
+      },
+      {
+        heading: 'Die drei Wichtigsten',
+        text: '**ser**: soy, eres, es, somos, sois, son\n**estar**: estoy, estás, está, estamos, estáis, están\n**ir**: voy, vas, va, vamos, vais, van',
+      },
+    ],
+    exercises: [
+      { q: '¿___ un café? (querer, tú)', options: ['Queres', 'Quieres', 'Quiere'], answer: 1 },
+      { q: 'No ___ ir hoy. (poder, yo)', options: ['podo', 'puedo', 'pudo'], answer: 1 },
+      { q: 'Nosotros ___ ir mañana. (poder)', options: ['puedemos', 'podemos', 'pueden'], answer: 1, explain: 'Bei nosotros kein Stammwechsel.' },
+      { q: 'Yo ___ la cena. (hacer)', options: ['haco', 'hago', 'hace'], answer: 1 },
+      { q: '___ dos hermanos. (tener, yo)', options: ['Teno', 'Tiengo', 'Tengo'], answer: 2 },
+      { q: '¿Adónde ___? (ir, vosotros)', options: ['vais', 'vamos', 'van'], answer: 0 },
+      { q: 'No ___ dónde está. (saber, yo)', options: ['sabo', 'sé', 'sepo'], answer: 1 },
+    ],
+  },
+  {
+    id: 'ser-estar',
+    level: 'A1',
+    title: 'Ser oder estar?',
+    emoji: '⚖️',
+    summary: 'Zwei Verben für „sein“ – das Wichtigste im Überblick.',
+    sections: [
+      {
+        heading: 'SER – was etwas IST',
+        text: 'Benutze **ser** für Identität, Herkunft, Beruf, Charakter, Aussehen, Material, Uhrzeit und Datum.',
+        examples: [
+          ['Soy Laura. Soy de Viena.', 'Ich bin Laura. Ich komme aus Wien.'],
+          ['Es profesor.', 'Er ist Lehrer.'],
+          ['Mi hermano es muy alto.', 'Mein Bruder ist sehr groß.'],
+          ['Son las tres.', 'Es ist drei Uhr.'],
+        ],
+      },
+      {
+        heading: 'ESTAR – wie / wo etwas IST',
+        text: 'Benutze **estar** für Ort, Befinden, Stimmung, vorübergehende Zustände und mit dem Gerundium (estoy comiendo).',
+        examples: [
+          ['Estoy en casa.', 'Ich bin zu Hause.'],
+          ['¿Cómo estás? – Estoy cansada.', 'Wie geht es dir? – Ich bin müde.'],
+          ['La sopa está fría.', 'Die Suppe ist kalt.'],
+          ['Estamos cenando.', 'Wir essen gerade zu Abend.'],
+        ],
+      },
+      {
+        heading: 'Bedeutungsunterschiede',
+        text: 'Manche Adjektive ändern ihre Bedeutung:',
+        table: [
+          ['', 'ser', 'estar'],
+          ['aburrido', 'langweilig sein', 'gelangweilt sein'],
+          ['listo', 'klug sein', 'fertig/bereit sein'],
+          ['rico', 'reich sein', 'lecker sein'],
+          ['malo', 'schlecht/böse sein', 'krank sein'],
+        ],
+      },
+    ],
+    exercises: [
+      { q: 'Madrid ___ en España.', options: ['es', 'está'], answer: 1, explain: 'Ort → estar' },
+      { q: 'Mi madre ___ médica.', options: ['es', 'está'], answer: 0, explain: 'Beruf → ser' },
+      { q: 'Hoy ___ muy cansado.', options: ['soy', 'estoy'], answer: 1, explain: 'Zustand → estar' },
+      { q: 'La paella ___ riquísima.', options: ['es', 'está'], answer: 1, explain: 'Geschmack gerade jetzt → estar' },
+      { q: 'Nosotros ___ de Alemania.', options: ['somos', 'estamos'], answer: 0, explain: 'Herkunft → ser' },
+      { q: '¿Qué hora ___?', options: ['es', 'está'], answer: 0, explain: 'Uhrzeit → ser' },
+      { q: 'Ana ___ hablando por teléfono.', options: ['es', 'está'], answer: 1, explain: 'Gerundium → estar' },
+      { q: 'La película ___ aburrida, no me gusta.', options: ['es', 'está'], answer: 0, explain: 'Eigenschaft → ser aburrido = langweilig' },
+    ],
+  },
+  {
+    id: 'hay-estar',
+    level: 'A1',
+    title: 'Hay oder está?',
+    emoji: '📍',
+    summary: 'Ob es etwas gibt – oder wo es sich befindet.',
+    sections: [
+      {
+        heading: 'Hay = es gibt',
+        text: '**Hay** zeigt, dass etwas existiert. Danach kommt meist **un/una**, eine Zahl oder gar kein Artikel. Hay ist unveränderlich.',
+        examples: [
+          ['Hay un banco cerca.', 'Es gibt eine Bank in der Nähe.'],
+          ['Hay muchos turistas.', 'Es gibt viele Touristen.'],
+          ['¿Hay leche?', 'Gibt es Milch?'],
+        ],
+      },
+      {
+        heading: 'Está / están = befindet sich',
+        text: 'Für bestimmte Dinge (mit **el/la**, Namen, mi/tu …) fragst du mit **estar**, wo sie sind.',
+        examples: [
+          ['El banco está en la plaza.', 'Die Bank ist am Platz.'],
+          ['¿Dónde están mis llaves?', 'Wo sind meine Schlüssel?'],
+        ],
+      },
+    ],
+    exercises: [
+      { q: '¿___ una farmacia por aquí?', options: ['Hay', 'Está'], answer: 0 },
+      { q: '¿Dónde ___ la estación?', options: ['hay', 'está'], answer: 1 },
+      { q: 'En mi calle ___ tres bares.', options: ['hay', 'están'], answer: 0 },
+      { q: 'Mis padres ___ en Málaga.', options: ['hay', 'están'], answer: 1 },
+      { q: 'No ___ pan, tengo que comprar.', options: ['hay', 'está'], answer: 0 },
+    ],
+  },
+  {
+    id: 'gustar',
+    level: 'A1',
+    title: 'Gustar & Co.',
+    emoji: '😍',
+    summary: 'Me gusta, me encanta, me duele – Verben, die „umgekehrt“ funktionieren.',
+    sections: [
+      {
+        heading: 'Wie gustar funktioniert',
+        text: 'Bei gustar ist das, was gefällt, das Subjekt. Die Person steht als Pronomen davor: **me, te, le, nos, os, les**. Ist das Subjekt Mehrzahl, heißt es **gustan**.',
+        table: [
+          ['Pronomen', 'Einzahl / Verb', 'Mehrzahl'],
+          ['(a mí) me', 'gusta el café', 'gustan los perros'],
+          ['(a ti) te', 'gusta bailar', 'gustan las fiestas'],
+          ['(a él/ella) le', 'gusta el cine', 'gustan las series'],
+          ['(a nosotros) nos', 'gusta viajar', 'gustan los viajes'],
+          ['(a ellos) les', 'gusta la playa', 'gustan los gatos'],
+        ],
+      },
+      {
+        heading: 'Zustimmen & widersprechen',
+        text: 'Mir auch: **a mí también**. Mir auch nicht: **a mí tampoco**. Widersprechen: **a mí sí** / **a mí no**.',
+        examples: [
+          ['Me gusta el fútbol. – A mí también.', 'Ich mag Fußball. – Ich auch.'],
+          ['No me gusta el café. – A mí sí.', 'Ich mag keinen Kaffee. – Ich schon.'],
+        ],
+      },
+      {
+        heading: 'Weitere Verben wie gustar',
+        text: '**encantar** (lieben), **interesar** (interessieren), **doler** (wehtun), **molestar** (stören), **apetecer** (Lust haben), **importar** (wichtig sein / etwas ausmachen), **parecer** (scheinen).',
+        examples: [
+          ['Me encantan los tacos.', 'Ich liebe Tacos.'],
+          ['¿Te apetece un helado?', 'Hast du Lust auf ein Eis?'],
+          ['Le duele la espalda.', 'Ihm tut der Rücken weh.'],
+        ],
+      },
+    ],
+    exercises: [
+      { q: 'Me ___ los gatos.', options: ['gusta', 'gustan', 'gusto'], answer: 1 },
+      { q: '¿Te ___ bailar?', options: ['gusta', 'gustan', 'gustas'], answer: 0, explain: 'Infinitiv → Einzahl' },
+      { q: 'A mi madre ___ gusta el jazz.', options: ['me', 'le', 'se'], answer: 1 },
+      { q: 'No me gusta el pescado. – A mí ___.', options: ['también', 'tampoco', 'sí también'], answer: 1 },
+      { q: 'Me ___ los pies.', options: ['duele', 'duelen', 'dolen'], answer: 1 },
+      { q: 'A nosotros ___ encanta viajar.', options: ['nos', 'les', 'os'], answer: 0 },
+    ],
+  },
+  {
+    id: 'posesivos',
+    level: 'A1',
+    title: 'Mi, tu, su …',
+    emoji: '👜',
+    summary: 'Besitzanzeigende Begleiter.',
+    sections: [
+      {
+        heading: 'Die Formen',
+        text: 'Possessivbegleiter richten sich nach dem **Besitz**, nicht nach dem Besitzer.',
+        table: [
+          ['', 'Einzahl', 'Mehrzahl'],
+          ['mein', 'mi', 'mis'],
+          ['dein', 'tu', 'tus'],
+          ['sein/ihr/Ihr', 'su', 'sus'],
+          ['unser', 'nuestro/a', 'nuestros/as'],
+          ['euer', 'vuestro/a', 'vuestros/as'],
+          ['ihr/Ihr (pl.)', 'su', 'sus'],
+        ],
+        examples: [
+          ['mi hermano, mis hermanos', 'mein Bruder, meine Geschwister'],
+          ['nuestra casa', 'unser Haus'],
+          ['su coche', 'sein/ihr/Ihr Auto'],
+        ],
+      },
+      {
+        heading: 'Betonte Formen',
+        text: 'Nach dem Nomen oder allein: **mío, tuyo, suyo, nuestro, vuestro**. Sehr häufig in Ausdrücken wie **¡Dios mío!** oder **un amigo mío** (ein Freund von mir).',
+        examples: [
+          ['¿Es tuyo? – Sí, es mío.', 'Ist das deins? – Ja, das ist meins.'],
+          ['un amigo mío', 'ein Freund von mir'],
+        ],
+      },
+    ],
+    exercises: [
+      { q: '___ padres viven en Colonia. (meine)', options: ['Mi', 'Mis', 'Mío'], answer: 1 },
+      { q: '¿Dónde está ___ móvil? (dein)', options: ['tu', 'tú', 'tus'], answer: 0, explain: '„tú“ mit Akzent heißt „du“.' },
+      { q: '___ casa es grande. (unser)', options: ['Nuestro', 'Nuestra', 'Nuestras'], answer: 1 },
+      { q: 'Es un amigo ___. (von mir)', options: ['mi', 'mío', 'mía'], answer: 1 },
+      { q: 'Señora, ¿es ___ bolso?', options: ['tu', 'su', 'sus'], answer: 1, explain: 'usted → su' },
+    ],
+  },
+  {
+    id: 'reflexivos',
+    level: 'A1',
+    title: 'Reflexive Verben',
+    emoji: '🪞',
+    summary: 'Me levanto, te duchas, se llama …',
+    sections: [
+      {
+        heading: 'So geht’s',
+        text: 'Reflexive Verben enden im Infinitiv auf **-se**. Beim Konjugieren steht das Pronomen **vor** dem Verb.',
+        table: [
+          ['', 'levantarse'],
+          ['yo', 'me levanto'],
+          ['tú', 'te levantas'],
+          ['él/ella', 'se levanta'],
+          ['nosotros', 'nos levantamos'],
+          ['vosotros', 'os levantáis'],
+          ['ellos', 'se levantan'],
+        ],
+      },
+      {
+        heading: 'Häufige reflexive Verben',
+        text: 'llamarse (heißen), levantarse (aufstehen), ducharse (duschen), vestirse (sich anziehen), acostarse (ins Bett gehen), quedarse (bleiben), irse (weggehen), sentirse (sich fühlen), ponerse (anziehen / werden), divertirse (Spaß haben).\nBeim Infinitiv kann das Pronomen angehängt werden: **Voy a ducharme.**',
+        examples: [
+          ['Me llamo Julia.', 'Ich heiße Julia.'],
+          ['¿A qué hora te levantas?', 'Wann stehst du auf?'],
+          ['Nos vamos, ¡adiós!', 'Wir gehen, tschüss!'],
+          ['Tengo que irme.', 'Ich muss gehen.'],
+        ],
+      },
+    ],
+    exercises: [
+      { q: '¿Cómo ___ llamas?', options: ['me', 'te', 'se'], answer: 1 },
+      { q: 'Yo ___ ducho por la mañana.', options: ['me', 'se', 'te'], answer: 0 },
+      { q: 'Mis hijos ___ acuestan a las nueve.', options: ['nos', 'se', 'os'], answer: 1 },
+      { q: 'Nosotros ___ levantamos tarde.', options: ['nos', 'se', 'me'], answer: 0 },
+      { q: 'Voy a ___ en casa. (quedarse, yo)', options: ['quedarse', 'quedarme', 'me quedar'], answer: 1 },
+    ],
+  },
+  {
+    id: 'estar-gerundio',
+    level: 'A1',
+    title: 'Estar + Gerundium',
+    emoji: '⏳',
+    summary: 'Was gerade passiert: estoy comiendo.',
+    sections: [
+      {
+        heading: 'Bildung',
+        text: '**estar** + Gerundium. Das Gerundium bildet man mit **-ando** (-ar) und **-iendo** (-er/-ir). Unregelmäßig: leyendo, durmiendo, pidiendo, diciendo, yendo.',
+        examples: [
+          ['Estoy trabajando.', 'Ich arbeite gerade.'],
+          ['¿Qué estás haciendo?', 'Was machst du gerade?'],
+          ['Están durmiendo.', 'Sie schlafen gerade.'],
+        ],
+      },
+      {
+        heading: 'Weitere Verwendungen',
+        text: '**seguir + Gerundium** = immer noch etwas tun. **llevar + Zeit + Gerundium** = seit … etwas tun.',
+        examples: [
+          ['Sigo viviendo en Madrid.', 'Ich wohne immer noch in Madrid.'],
+          ['Llevo un año aprendiendo español.', 'Ich lerne seit einem Jahr Spanisch.'],
+        ],
+      },
+    ],
+    exercises: [
+      { q: 'Ahora estoy ___. (comer)', options: ['comando', 'comiendo', 'comido'], answer: 1 },
+      { q: '¿Qué estás ___? (hacer)', options: ['haciendo', 'hacendo', 'hecho'], answer: 0 },
+      { q: 'Los niños están ___. (dormir)', options: ['dormiendo', 'durmiendo', 'dormido'], answer: 1 },
+      { q: 'Estoy ___ un libro. (leer)', options: ['leiendo', 'leyendo', 'leendo'], answer: 1 },
+      { q: '___ dos años viviendo aquí.', options: ['Sigo', 'Llevo', 'Estoy'], answer: 1 },
+    ],
+  },
+  {
+    id: 'ir-a',
+    level: 'A1',
+    title: 'Ir a + Infinitiv',
+    emoji: '➡️',
+    summary: 'Die einfachste Zukunft: voy a viajar.',
+    sections: [
+      {
+        heading: 'Bildung',
+        text: '**ir** (voy, vas, va, vamos, vais, van) + **a** + Infinitiv. So drückst du Pläne und die nahe Zukunft aus – im Alltag viel häufiger als das Futur.',
+        examples: [
+          ['Voy a llamar a mi madre.', 'Ich rufe gleich meine Mutter an.'],
+          ['¿Qué vas a hacer este finde?', 'Was machst du dieses Wochenende?'],
+          ['Va a llover.', 'Es wird regnen.'],
+          ['¡Vamos a comer!', 'Lass uns essen!'],
+        ],
+      },
+    ],
+    exercises: [
+      { q: 'Mañana ___ a estudiar. (yo)', options: ['voy', 'vas', 'va'], answer: 0 },
+      { q: '¿Qué ___ a hacer vosotros?', options: ['vamos', 'vais', 'van'], answer: 1 },
+      { q: 'Mira las nubes, va ___ llover.', options: ['de', 'a', 'que'], answer: 1 },
+      { q: 'Ellos van a ___ en julio.', options: ['viajan', 'viajar', 'viajando'], answer: 1 },
+    ],
+  },
+  {
+    id: 'negacion',
+    level: 'A1',
+    title: 'Verneinung: no, nunca, nada',
+    emoji: '🚫',
+    summary: 'Doppelte Verneinung ist im Spanischen normal!',
+    sections: [
+      {
+        heading: 'No vor dem Verb',
+        text: '**No** steht immer direkt vor dem Verb (bzw. vor den Pronomen).',
+        examples: [
+          ['No hablo francés.', 'Ich spreche kein Französisch.'],
+          ['No me gusta.', 'Es gefällt mir nicht.'],
+        ],
+      },
+      {
+        heading: 'Doppelte Verneinung',
+        text: 'Mit **nada** (nichts), **nadie** (niemand), **nunca** (nie), **tampoco** (auch nicht), **ningún/ninguna** (kein) wird doppelt verneint, wenn sie nach dem Verb stehen.',
+        examples: [
+          ['No tengo nada.', 'Ich habe nichts.'],
+          ['No hay nadie.', 'Es ist niemand da.'],
+          ['No voy nunca. = Nunca voy.', 'Ich gehe nie hin.'],
+          ['No tengo ningún problema.', 'Ich habe kein Problem.'],
+        ],
+      },
+    ],
+    exercises: [
+      { q: 'No quiero ___. (nichts)', options: ['algo', 'nada', 'nadie'], answer: 1 },
+      { q: '¿Hay alguien? – No, no hay ___.', options: ['nadie', 'nada', 'ninguno'], answer: 0 },
+      { q: '___ como carne.', options: ['Nunca', 'No nunca', 'Nada'], answer: 0 },
+      { q: 'No tengo ___ idea.', options: ['ningún', 'ninguna', 'nada'], answer: 1 },
+    ],
+  },
+  {
+    id: 'pronombres',
+    level: 'A2',
+    title: 'Objektpronomen: lo, la, le …',
+    emoji: '🎯',
+    summary: '„Ich sehe ihn“, „ich gebe es dir“ – kurz und natürlich.',
+    sections: [
+      {
+        heading: 'Direkte & indirekte Objekte',
+        text: 'Direkt (wen/was?): **me, te, lo/la, nos, os, los/las**. Indirekt (wem?): **me, te, le, nos, os, les**.',
+        table: [
+          ['', 'direkt', 'indirekt'],
+          ['mich/mir', 'me', 'me'],
+          ['dich/dir', 'te', 'te'],
+          ['ihn/sie/es / ihm/ihr', 'lo / la', 'le'],
+          ['uns', 'nos', 'nos'],
+          ['euch', 'os', 'os'],
+          ['sie / ihnen', 'los / las', 'les'],
+        ],
+        examples: [
+          ['¿El libro? Lo tengo yo.', 'Das Buch? Ich habe es.'],
+          ['Le escribo un mensaje.', 'Ich schreibe ihm/ihr eine Nachricht.'],
+        ],
+      },
+      {
+        heading: 'Position',
+        text: 'Pronomen stehen **vor** dem konjugierten Verb. An Infinitiv, Gerundium und bejahten Imperativ werden sie **angehängt**. Treffen le/les und lo/la aufeinander, wird **le → se**.',
+        examples: [
+          ['Quiero comprarlo. = Lo quiero comprar.', 'Ich will es kaufen.'],
+          ['¡Dímelo!', 'Sag es mir!'],
+          ['Se lo doy. (le + lo)', 'Ich gebe es ihm.'],
+        ],
+      },
+    ],
+    exercises: [
+      { q: '¿Ves a María? – Sí, ___ veo.', options: ['la', 'le', 'lo'], answer: 0 },
+      { q: '¿Tienes el billete? – Sí, ___ tengo.', options: ['la', 'lo', 'le'], answer: 1 },
+      { q: '___ doy el regalo a mi madre.', options: ['Lo', 'Le', 'La'], answer: 1, explain: 'Wem? → indirekt: le' },
+      { q: '¿El regalo? ___ lo doy mañana. (ihr)', options: ['Le', 'Se', 'La'], answer: 1, explain: 'le + lo → se lo' },
+      { q: 'Quiero ___. (es kaufen)', options: ['lo comprar', 'comprarlo', 'comprar lo'], answer: 1 },
+    ],
+  },
+  {
+    id: 'perfecto',
+    level: 'A2',
+    title: 'Pretérito perfecto',
+    emoji: '✔️',
+    summary: 'He comido, has visto – Vergangenheit mit Bezug zur Gegenwart.',
+    sections: [
+      {
+        heading: 'Bildung',
+        text: '**haber** (he, has, ha, hemos, habéis, han) + Partizip. Partizip: **-ado** (-ar), **-ido** (-er/-ir). Das Partizip ist unveränderlich.',
+        examples: [
+          ['He trabajado mucho hoy.', 'Ich habe heute viel gearbeitet.'],
+          ['¿Has comido ya?', 'Hast du schon gegessen?'],
+        ],
+      },
+      {
+        heading: 'Unregelmäßige Partizipien',
+        text: 'hacer → **hecho**, decir → **dicho**, ver → **visto**, poner → **puesto**, escribir → **escrito**, abrir → **abierto**, volver → **vuelto**, romper → **roto**, morir → **muerto**.',
+      },
+      {
+        heading: 'Wann?',
+        text: 'Mit **hoy, esta semana, este año, ya, todavía no, alguna vez, nunca**. In Spanien sehr häufig; in Lateinamerika benutzt man stattdessen oft das Indefinido.',
+        examples: [
+          ['Esta semana he ido dos veces al gimnasio.', 'Diese Woche war ich zweimal im Fitnessstudio.'],
+          ['¿Has estado alguna vez en Cuba?', 'Warst du schon mal auf Kuba?'],
+        ],
+      },
+    ],
+    exercises: [
+      { q: 'Hoy ___ comido paella. (yo)', options: ['he', 'ha', 'has'], answer: 0 },
+      { q: '¿Qué has ___? (hacer)', options: ['hacido', 'hecho', 'hacho'], answer: 1 },
+      { q: 'Todavía no he ___ la película. (ver)', options: ['vido', 'visto', 'veído'], answer: 1 },
+      { q: 'Nosotros ___ vuelto tarde.', options: ['hemos', 'habemos', 'han'], answer: 0 },
+      { q: '¿Quién ha ___ la ventana? (abrir)', options: ['abrido', 'abierto', 'abrito'], answer: 1 },
+    ],
+  },
+  {
+    id: 'indefinido',
+    level: 'A2',
+    title: 'Pretérito indefinido',
+    emoji: '📆',
+    summary: 'Abgeschlossene Ereignisse: ayer fui, comí, vi …',
+    sections: [
+      {
+        heading: 'Regelmäßige Formen',
+        table: [
+          ['', 'hablar', 'comer / vivir'],
+          ['yo', 'hablé', 'comí'],
+          ['tú', 'hablaste', 'comiste'],
+          ['él/ella', 'habló', 'comió'],
+          ['nosotros', 'hablamos', 'comimos'],
+          ['vosotros', 'hablasteis', 'comisteis'],
+          ['ellos', 'hablaron', 'comieron'],
+        ],
+        text: 'Für Handlungen, die zu einem bestimmten Zeitpunkt in der Vergangenheit **abgeschlossen** sind: ayer, anoche, el año pasado, en 2019, hace dos días.',
+      },
+      {
+        heading: 'Wichtige Unregelmäßige',
+        text: '**ser/ir**: fui, fuiste, fue, fuimos, fuisteis, fueron\n**tener**: tuve, tuviste, tuvo …\n**estar**: estuve …  **hacer**: hice, hiciste, hizo …\n**poder**: pude …  **poner**: puse …  **decir**: dije, dijeron\n**venir**: vine …  **querer**: quise …  **dar**: di, diste, dio …',
+        examples: [
+          ['Ayer fui al cine.', 'Gestern war ich im Kino.'],
+          ['¿Qué hiciste el sábado?', 'Was hast du am Samstag gemacht?'],
+          ['No pude dormir.', 'Ich konnte nicht schlafen.'],
+        ],
+      },
+    ],
+    exercises: [
+      { q: 'Ayer ___ con mi madre. (hablar, yo)', options: ['hablé', 'hablo', 'habló'], answer: 0 },
+      { q: 'El año pasado ___ a Perú. (ir, nosotros)', options: ['vamos', 'fuimos', 'íbamos'], answer: 1 },
+      { q: '¿Qué ___ anoche? (hacer, tú)', options: ['hiciste', 'haciste', 'hacías'], answer: 0 },
+      { q: 'Ella ___ tarde. (llegar)', options: ['llegué', 'llegó', 'llega'], answer: 1 },
+      { q: 'No ___ venir. (poder, ellos)', options: ['podieron', 'pudieron', 'pudimos'], answer: 1 },
+      { q: 'Yo ___ en Sevilla en 2020. (estar)', options: ['estuve', 'estaba', 'estí'], answer: 0 },
+    ],
+  },
+  {
+    id: 'imperfecto',
+    level: 'A2',
+    title: 'Pretérito imperfecto',
+    emoji: '🎞️',
+    summary: 'Wie es früher war: Gewohnheiten und Beschreibungen.',
+    sections: [
+      {
+        heading: 'Formen',
+        text: 'Fast alle Verben sind regelmäßig. Nur **ser** (era), **ir** (iba) und **ver** (veía) sind unregelmäßig.',
+        table: [
+          ['', 'hablar', 'comer / vivir'],
+          ['yo', 'hablaba', 'comía'],
+          ['tú', 'hablabas', 'comías'],
+          ['él/ella', 'hablaba', 'comía'],
+          ['nosotros', 'hablábamos', 'comíamos'],
+          ['vosotros', 'hablabais', 'comíais'],
+          ['ellos', 'hablaban', 'comían'],
+        ],
+      },
+      {
+        heading: 'Imperfecto vs. Indefinido',
+        text: '**Imperfecto**: Gewohnheiten (siempre, todos los días, antes), Beschreibungen, Hintergrund, laufende Handlungen.\n**Indefinido**: einzelne, abgeschlossene Ereignisse – die „Handlung“ der Geschichte.',
+        examples: [
+          ['De pequeño jugaba al fútbol todos los días.', 'Als Kind spielte ich jeden Tag Fußball.'],
+          ['Hacía sol y la playa estaba llena.', 'Die Sonne schien und der Strand war voll.'],
+          ['Leía cuando sonó el teléfono.', 'Ich las gerade, als das Telefon klingelte.'],
+        ],
+      },
+    ],
+    exercises: [
+      { q: 'Cuando era niño, ___ en un pueblo. (vivir)', options: ['viví', 'vivía', 'vivo'], answer: 1 },
+      { q: 'Antes ___ mucho al cine. (ir, nosotros)', options: ['íbamos', 'fuimos', 'ibamos'], answer: 0 },
+      { q: 'Dormía cuando ___ el teléfono.', options: ['sonaba', 'sonó', 'suena'], answer: 1, explain: 'Plötzliches Ereignis → Indefinido' },
+      { q: 'La casa ___ muy grande. (ser)', options: ['era', 'fue', 'estaba'], answer: 0, explain: 'Beschreibung → Imperfecto' },
+      { q: 'Ayer ___ a mi abuela. (visitar, yo)', options: ['visitaba', 'visité', 'visito'], answer: 1 },
+    ],
+  },
+  {
+    id: 'comparativos',
+    level: 'A2',
+    title: 'Vergleiche',
+    emoji: '📏',
+    summary: 'Más … que, menos … que, tan … como, el mejor.',
+    sections: [
+      {
+        heading: 'Vergleichen',
+        text: '**más + Adj. + que** (mehr als), **menos + Adj. + que** (weniger als), **tan + Adj. + como** (so … wie), **tanto/a/os/as + Nomen + como** (so viel … wie).',
+        examples: [
+          ['Madrid es más grande que Sevilla.', 'Madrid ist größer als Sevilla.'],
+          ['El tren es menos caro que el avión.', 'Der Zug ist billiger als das Flugzeug.'],
+          ['Soy tan alto como mi padre.', 'Ich bin so groß wie mein Vater.'],
+        ],
+      },
+      {
+        heading: 'Unregelmäßig & Superlativ',
+        text: 'bueno → **mejor**, malo → **peor**, grande (Alter) → **mayor**, pequeño (Alter) → **menor**. Superlativ: **el/la más …** oder mit **-ísimo**: riquísimo, carísimo.',
+        examples: [
+          ['Es la mejor paella del mundo.', 'Das ist die beste Paella der Welt.'],
+          ['Mi hermana mayor', 'meine ältere Schwester'],
+          ['¡Está buenísimo!', 'Das ist superlecker!'],
+        ],
+      },
+    ],
+    exercises: [
+      { q: 'Ana es más alta ___ Pedro.', options: ['que', 'como', 'de'], answer: 0 },
+      { q: 'El café es tan caro ___ el té.', options: ['que', 'como', 'tan'], answer: 1 },
+      { q: 'Este vino es ___ que el otro. (besser)', options: ['más bueno', 'mejor', 'más mejor'], answer: 1 },
+      { q: 'Es la ciudad ___ bonita de España.', options: ['más', 'mejor', 'muy'], answer: 0 },
+      { q: 'La tarta está ___. (sehr lecker)', options: ['riquísima', 'más rica', 'muy riquísima'], answer: 0 },
+    ],
+  },
+  {
+    id: 'por-para',
+    level: 'A2',
+    title: 'Por oder para?',
+    emoji: '🔀',
+    summary: 'Zwei Wörter für „für“ – mit einfachen Faustregeln.',
+    sections: [
+      {
+        heading: 'PARA – Ziel, Zweck, Empfänger',
+        text: 'Wohin? Wozu? Für wen? Bis wann?',
+        examples: [
+          ['Este regalo es para ti.', 'Dieses Geschenk ist für dich.'],
+          ['Estudio para aprobar.', 'Ich lerne, um zu bestehen.'],
+          ['Salgo para Madrid.', 'Ich fahre nach Madrid ab.'],
+          ['Es para mañana.', 'Es ist bis morgen.'],
+        ],
+      },
+      {
+        heading: 'POR – Grund, Weg, Austausch, Zeitraum',
+        text: 'Warum? Wodurch? Wie viel? Wann ungefähr?',
+        examples: [
+          ['Gracias por todo.', 'Danke für alles.'],
+          ['Paseamos por el parque.', 'Wir gehen durch den Park spazieren.'],
+          ['Lo compré por diez euros.', 'Ich habe es für zehn Euro gekauft.'],
+          ['Te llamo por la tarde.', 'Ich rufe dich am Nachmittag an.'],
+          ['Hablamos por teléfono.', 'Wir sprechen per Telefon.'],
+        ],
+      },
+    ],
+    exercises: [
+      { q: 'Gracias ___ tu ayuda.', options: ['por', 'para'], answer: 0, explain: 'Grund → por' },
+      { q: 'Este café es ___ ti.', options: ['por', 'para'], answer: 1, explain: 'Empfänger → para' },
+      { q: 'Trabajo ___ ganar dinero.', options: ['por', 'para'], answer: 1, explain: 'Zweck → para' },
+      { q: 'Caminamos ___ la playa.', options: ['por', 'para'], answer: 0, explain: 'Durch / entlang → por' },
+      { q: 'Lo vendí ___ cien euros.', options: ['por', 'para'], answer: 0, explain: 'Austausch → por' },
+      { q: 'Necesito el informe ___ el lunes.', options: ['por', 'para'], answer: 1, explain: 'Frist → para' },
+    ],
+  },
+  {
+    id: 'obligacion',
+    level: 'A1',
+    title: 'Tener que, hay que, deber',
+    emoji: '📌',
+    summary: 'Müssen und sollen ausdrücken.',
+    sections: [
+      {
+        heading: 'Die drei Varianten',
+        text: '**tener que + Infinitiv** = müssen (persönlich). **hay que + Infinitiv** = man muss (allgemein). **deber + Infinitiv** = sollen/müssen (moralisch, Rat).',
+        examples: [
+          ['Tengo que trabajar mañana.', 'Ich muss morgen arbeiten.'],
+          ['Hay que reservar con antelación.', 'Man muss im Voraus reservieren.'],
+          ['Deberías dormir más.', 'Du solltest mehr schlafen.'],
+        ],
+      },
+    ],
+    exercises: [
+      { q: '___ que estudiar para el examen. (ich)', options: ['Tengo', 'Hay', 'Debo'], answer: 0 },
+      { q: 'En España ___ que pagar en efectivo a veces.', options: ['tienes', 'hay', 'tiene'], answer: 1 },
+      { q: 'Tienes ___ llamar a tu madre.', options: ['de', 'que', 'a'], answer: 1 },
+      { q: 'No ___ fumar tanto. (du solltest nicht)', options: ['deberías', 'hay', 'tienes'], answer: 0 },
+    ],
+  },
+];

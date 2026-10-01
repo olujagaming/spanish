@@ -1,11 +1,11 @@
 import { FALSE_FRIENDS } from '../content/extras';
-import { BackLink, SpeakButton } from '../components/ui';
+import { BackLink, SpeakButton, PageHead } from '../components/ui';
 
 export default function FalseFriends() {
   return (
     <div>
       <BackLink />
-      <h1>🎭 Falsche Freunde</h1>
+      <PageHead kicker="Falsos amigos" icon="mascaras" title="Falsche Freunde" />
       <p className="muted small">Diese Wörter klingen vertraut – bedeuten aber etwas anderes. Hier lauern die lustigsten Missverständnisse!</p>
       <div className="list">
         {FALSE_FRIENDS.map(([es, means, notMeans, instead]) => (
@@ -17,10 +17,10 @@ export default function FalseFriends() {
               </div>
             </div>
             <div style={{ marginTop: 6 }}>
-              ✅ heißt: <strong>{means}</strong>
+              heißt: <strong>{means}</strong>
             </div>
             <div className="small muted">
-              ❌ nicht: {notMeans} → dafür sagt man <strong>{instead}</strong>
+              nicht: {notMeans} → dafür sagt man <strong>{instead}</strong>
             </div>
           </div>
         ))}

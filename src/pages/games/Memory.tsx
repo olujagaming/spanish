@@ -59,7 +59,7 @@ export default function Memory({ onRestart }: { onRestart: () => void }) {
 
   return (
     <div>
-      <GameHeader title="🧠 Memory">
+      <GameHeader title="Memoria">
         <span className="stat-pill">Züge: {moves}</span>
       </GameHeader>
       <div className="memory-grid">

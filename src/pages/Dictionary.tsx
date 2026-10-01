@@ -4,7 +4,7 @@ import { WORDS } from '../content';
 import { fold } from '../lib/answer';
 import { setState, useAppState } from '../lib/store';
 import { addCards } from '../lib/state';
-import { BackLink, LevelBadge, RegionalNote, SpeakButton } from '../components/ui';
+import { BackLink, LevelBadge, RegionalNote, SpeakButton, PageHead } from '../components/ui';
 
 export default function Dictionary() {
   const s = useAppState();
@@ -18,7 +18,7 @@ export default function Dictionary() {
   return (
     <div>
       <BackLink />
-      <h1>🔎 Wörterbuch</h1>
+      <PageHead kicker="Diccionario" icon="buscar" title="Wörterbuch" />
       <p className="muted small">{WORDS.length} Wörter und Ausdrücke aus allen Lektionen. Suche auf Deutsch oder Spanisch.</p>
       <input className="input" placeholder="z. B. Kaffee oder hablar" value={q} onChange={(e) => setQ(e.target.value)} style={{ marginBottom: 12 }} autoFocus />
       <div className="list">
@@ -31,15 +31,15 @@ export default function Dictionary() {
               <RegionalNote note={w.note} />
             </div>
             <div style={{ textAlign: 'right' }}>
-              <Link to={`/lektion/${w.lessonId}`}>
+              <Link to={`/mision/${w.lessonId}`}>
                 <LevelBadge level={w.level} />
               </Link>
               <div>
                 {s.cards[w.key] ? (
-                  <span className="tiny muted">🗂️ ✓</span>
+                  <span className="tiny muted">im Dex</span>
                 ) : (
-                  <button type="button" className="btn ghost small" onClick={() => setState((st) => addCards(st, [w.key]))} title="Zu Karteikarten">
-                    ➕
+                  <button type="button" className="btn ghost small" onClick={() => setState((st) => addCards(st, [w.key]))} title="Zum Dex hinzufügen">
+                    +
                   </button>
                 )}
               </div>

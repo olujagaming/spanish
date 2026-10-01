@@ -1,4 +1,6 @@
+import { PageHead } from '../components/ui';
 import { Link } from 'react-router-dom';
+import { Icon } from '../components/Icon';
 import { useAppState } from '../lib/store';
 import { GAMES } from './games/shared';
 import { learnedWords } from '../lib/selectors';
@@ -8,18 +10,20 @@ export default function Games() {
   const pool = learnedWords(s).length;
   return (
     <div>
-      <h1>🎮 Spiele</h1>
+      <PageHead kicker="Arena" icon="arena" title="Spiele" />
       <p className="muted">
-        Lernen mit Spaß! Die Spiele benutzen die Wörter aus deinen abgeschlossenen Lektionen ({pool} Wörter) – je mehr du lernst, desto
+        Kurze Duelle gegen die Uhr. Die Spiele benutzen die Wörter aus deinen abgeschlossenen Lektionen ({pool} Wörter) – je mehr du lernst, desto
         abwechslungsreicher wird es.
       </p>
       <div className="grid-2">
         {GAMES.map((g) => (
-          <Link key={g.id} to={`/spiele/${g.id}`} className="tile">
-            <span className="t-emoji">{g.emoji}</span>
+          <Link key={g.id} to={`/arena/${g.id}`} className="tile">
+            <span className="t-emoji">
+              <Icon name={g.emoji} size={26} />
+            </span>
             <span className="t-title">{g.title}</span>
             <span className="t-sub">{g.desc}</span>
-            {s.highscores[g.id] !== undefined && <span className="badge">🏆 {s.highscores[g.id]}</span>}
+            {s.highscores[g.id] !== undefined && <span className="badge">Récord · {s.highscores[g.id]}</span>}
           </Link>
         ))}
       </div>

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { CONVERSATIONS } from '../content/conversations';
 import { useAppState } from '../lib/store';
-import { LevelBadge } from '../components/ui';
+import { LevelBadge, PageHead } from '../components/ui';
 import type { LevelId } from '../content/types';
 
 const LEVELS: (LevelId | 'all')[] = ['all', 'A0', 'A1', 'A2', 'B1', 'B2'];
@@ -14,7 +14,7 @@ export default function Conversations() {
   const done = Object.keys(s.conversations).length;
   return (
     <div>
-      <h1>💬 Gespräche</h1>
+      <PageHead kicker="Tertulias" icon="tertulia" title="Gespräche aus dem Alltag" />
       <p className="muted">
         Echte Alltagssituationen: erst anhören und mitlesen, dann selbst im <strong>Rollenspiel</strong> antworten. {done} von{' '}
         {CONVERSATIONS.length} geführt.
@@ -28,7 +28,7 @@ export default function Conversations() {
       </div>
       <div className="list">
         {list.map((c) => (
-          <Link key={c.id} to={`/gespraech/${c.id}`} className="list-item">
+          <Link key={c.id} to={`/tertulia/${c.id}`} className="list-item">
             <span style={{ fontSize: '1.8rem' }}>{c.emoji}</span>
             <div className="grow">
               <div style={{ fontWeight: 800 }}>{c.title}</div>

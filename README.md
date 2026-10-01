@@ -1,7 +1,28 @@
-# 🇪🇸 ¡Hablemos! – Spanisch lernen
+# Hablemos – Spanisch auf Reisen lernen
 
 Eine Lern-App für **natürliches Alltagsspanisch** – von absolut null bis zu einem fortgeschrittenen Niveau (A0 → B2).
 Läuft im **Browser** und auf dem **Handy** (als installierbare, offline-fähige Web-App / PWA).
+
+## Das Konzept
+
+Du **reist durch die spanischsprachige Welt** – von Madrid über Andalusien, Ciudad de México und Buenos Aires bis nach
+Bogotá & Cartagena – und baust dir unterwegs deine eigene **Plaza** auf: eine kleine schwebende Insel, auf der mit jeder
+abgeschlossenen Etappe ein neues Gebäude entsteht. Mit verdienten **Reales** kaufst du Dekorationen und gestaltest sie selbst.
+Jedes gelernte Wort wird ein Eintrag in deinem **Dex** – mit Seltenheit und Meisterungsstufe. Deine XP bringen dich vom
+*Turista* bis zur *Leyenda*.
+
+| Bereich | Was es ist |
+| --- | --- |
+| **Plaza** | Startseite mit deiner Insel, nächster Misión, Rang und Energía (Tagesziel) |
+| **Mapa** | Reiseroute: 5 Regionen → Etappen → Misiones; „Atajo“ zum Überspringen |
+| **Dex** | Sammlung aller Wörter (#001–#978), Seltenheit Común → Legendaria, Meisterung per Spaced Repetition, „Repasar“ |
+| **Tertulias** | Alltagsgespräche zum Anhören und als Rollenspiel |
+| **Arena** | 7 Spiele gegen die Uhr |
+| **Códice** | Grammatik, kurz und alltagsnah |
+| **Tienda** | Dekorationen für die Plaza |
+
+Design: „Noche y oro“ – dunkel und edel (helles Thema „Día“ wählbar), Schriften Fraunces & Sora (lokal eingebunden,
+funktionieren offline), eigene Linien-Icons, alle Grafiken als SVG.
 
 ## Was drin ist
 

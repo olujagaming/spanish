@@ -23,6 +23,6 @@ export default function GamePage() {
   const { game = '' } = useParams();
   const [round, setRound] = useState(0);
   const Comp = MAP[game];
-  if (!Comp) return <BackLink to="/spiele" />;
+  if (!Comp) return <BackLink to="/arena" />;
   return <Comp key={round} onRestart={() => setRound((r) => r + 1)} />;
 }

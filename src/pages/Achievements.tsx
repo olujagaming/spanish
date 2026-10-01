@@ -1,6 +1,6 @@
 import { ACHIEVEMENTS } from '../lib/achievements';
 import { useAppState } from '../lib/store';
-import { BackLink } from '../components/ui';
+import { BackLink, PageHead } from '../components/ui';
 
 export default function Achievements() {
   const s = useAppState();
@@ -8,7 +8,7 @@ export default function Achievements() {
   return (
     <div>
       <BackLink />
-      <h1>🏅 Erfolge</h1>
+      <PageHead kicker="Logros" icon="medalla" title="Deine Erfolge" />
       <p className="muted">
         {got} von {ACHIEVEMENTS.length} freigeschaltet
       </p>

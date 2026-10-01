@@ -9,7 +9,7 @@ export default function VerbPage() {
   const { inf = '' } = useParams();
   const v = VERBS.find((x) => x.inf === decodeURIComponent(inf));
   const [tense, setTense] = useState<Tense>('presente');
-  if (!v) return <BackLink to="/verben" />;
+  if (!v) return <BackLink to="/verbos" />;
   const forms = conjugate(v, tense);
   const persons = tense === 'imperativo' ? IMPERATIVE_PERSONS : PERSONS;
   const info = TENSES.find((t) => t.id === tense)!;
@@ -17,7 +17,7 @@ export default function VerbPage() {
 
   return (
     <div>
-      <BackLink to="/verben" label="Verben" />
+      <BackLink to="/verbos" label="Verben" />
       <div className="row">
         <SpeakButton text={v.inf} />
         <div>

@@ -45,7 +45,7 @@ export function Dialogue({ lines, me = 'Tú', showDe }: { lines: readonly Line[]
             } else playFrom(0);
           }}
         >
-          {playing !== null ? '⏹ Stopp' : '▶️ Ganzes Gespräch anhören'}
+          {playing !== null ? 'Stopp' : 'Ganzes Gespräch anhören'}
         </button>
       </div>
       {lines.map(([who, es, de], i) => (
